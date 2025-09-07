@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const location = useLocation();
-  
+  const navigate = useNavigate();
+
   const navigation = [
     { name: "Home", href: "/" },
     { name: "YouTube Services", href: "/youtube-services" },
@@ -12,7 +13,7 @@ const Header = () => {
   ];
 
   const handleContactClick = () => {
-    window.location.href = "mailto:contact@contentservices.com?subject=Service Inquiry";
+    navigate("/contact");
   };
 
   return (
