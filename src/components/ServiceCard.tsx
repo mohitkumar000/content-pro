@@ -9,7 +9,13 @@ interface ServiceCardProps {
 
 const ServiceCard = ({ title, description, features }: ServiceCardProps) => {
   const handleContactClick = () => {
-    window.location.href = `mailto:contact@contentservices.com?subject=Interest in ${title}`;
+    const formSection = document.getElementById("contact-form");
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: "smooth" });
+
+      // store selected service in localStorage (or context)
+      localStorage.setItem("selectedService", title);
+    }
   };
 
   return (

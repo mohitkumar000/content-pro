@@ -1,25 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import emailjs from "emailjs-com";
 
-interface ContactFormProps {
-  subject?: string; // 👈 optional prop
-}
-
-const ContactForm = ({ subject }: ContactFormProps) => {
+const ContactForm = () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
-    subject: subject || "",
   });
-
-  useEffect(() => {
-    if (subject) {
-      setForm((prev) => ({ ...prev, subject }));
-    }
-  }, [subject]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -27,30 +15,26 @@ const ContactForm = ({ subject }: ContactFormProps) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    emailjs
-      .send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,  // ✅ from .env
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // ✅ from .env
-        {
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          message: form.message,
-          subject: form.subject,
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY   // ✅ from .env
-      )
-      .then(() => {
-        alert("✅ Your message has been sent successfully!");
-        setForm({ name: "", email: "", phone: "", message: "", subject: "" });
-      })
-      .catch((error) => {
-        console.error("❌ EmailJS Error:", error);
-        alert("Something went wrong. Please try again.");
+    try {
+      const res = await fetch("http://localhost:5000/send-mail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
+
+      if (res.ok) {
+        alert("Your message has been sent successfully!");
+        setForm({ name: "", email: "", phone: "", message: "" });
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error sending message.");
+    }
   };
 
   return (
@@ -84,17 +68,6 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         required
         className="w-full border rounded-lg p-2"
       />
-
-      {form.subject && (
-        <input
-          type="text"
-          name="subject"
-          value={form.subject}
-          onChange={handleChange}
-          readOnly
-          className="w-full border rounded-lg p-2 bg-gray-100 cursor-not-allowed"
-        />
-      )}
 
       <textarea
         name="message"

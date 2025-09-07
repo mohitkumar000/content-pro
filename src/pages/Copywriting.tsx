@@ -99,7 +99,9 @@ const Copywriting = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 
-              onClick={() => window.location.href = "mailto:contact@contentservices.com?subject=Copywriting Services Inquiry"}
+              onClick={() => {
+                document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
+              }}
               className="bg-white/20 hover:bg-white/30 text-white border border-white/30 px-8 py-3 rounded-lg transition-all"
             >
               Get Your Copy Today
@@ -129,7 +131,7 @@ const Copywriting = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 bg-muted/50">
+      <section id="contact-form" className="py-20 bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <ContactForm />
