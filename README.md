@@ -147,3 +147,19 @@ To investigate these issues:
 - `npm run start` - Start production server
 - `npm run lint` - Run linting
 - `npm run test` - Run tests
+
+# Content Pro
+
+A content management system project.
+
+## Getting Started
+
+1. Clone the repository:
+```bash
+git clone https://github.com/mohitkumar000/content-pro.git
+```
+
+2. Navigate to project directory:
+```bash
+cd content-pro
+```
