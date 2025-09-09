@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Header from "@/components/layout/Header";
 import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
 
@@ -96,8 +95,7 @@ const OtherServices = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      
+     
       {/* Hero Section */}
       <section className="bg-gradient-primary py-20">
         <div className="container mx-auto px-4 text-center">

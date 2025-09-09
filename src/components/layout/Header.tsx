@@ -13,6 +13,7 @@ const Header = () => {
     { name: "YouTube Services", href: "/youtube-services" },
     { name: "Copywriting", href: "/copywriting" },
     { name: "Other Services", href: "/other-services" },
+    { name: "Pricing", href: "/pricing" }, // ✅ added pricing link
   ];
 
   return (
