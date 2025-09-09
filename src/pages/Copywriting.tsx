@@ -1,4 +1,3 @@
-import Header from "@/components/layout/Header";
 import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
 
@@ -10,10 +9,10 @@ const Copywriting = () => {
       features: [
         "Viral thread creation",
         "Engaging hook development",
-        "Personal brand voice development", 
+        "Personal brand voice development",
         "Hashtag and timing optimization",
-        "Community engagement strategies"
-      ]
+        "Community engagement strategies",
+      ],
     },
     {
       title: "Blog Writing",
@@ -23,8 +22,8 @@ const Copywriting = () => {
         "Long-form storytelling",
         "Technical tutorials",
         "Keyword research integration",
-        "Content series planning"
-      ]
+        "Content series planning",
+      ],
     },
     {
       title: "News & Articles",
@@ -34,8 +33,8 @@ const Copywriting = () => {
         "Research-backed articles",
         "Expert interviews",
         "Fact-checking and verification",
-        "Publication-ready formatting"
-      ]
+        "Publication-ready formatting",
+      ],
     },
     {
       title: "Email Copywriting",
@@ -45,8 +44,8 @@ const Copywriting = () => {
         "Email sequence automation",
         "Sales funnel emails",
         "Subject line optimization",
-        "A/B testing strategies"
-      ]
+        "A/B testing strategies",
+      ],
     },
     {
       title: "Landing Page Copy",
@@ -56,8 +55,8 @@ const Copywriting = () => {
         "Conversion funnel copy",
         "Headline and CTA testing",
         "Psychology-driven copy",
-        "Mobile optimization"
-      ]
+        "Mobile optimization",
+      ],
     },
     {
       title: "Ad Copy",
@@ -67,8 +66,8 @@ const Copywriting = () => {
         "A/B testing variations",
         "Audience targeting copy",
         "Campaign optimization",
-        "Performance tracking setup"
-      ]
+        "Performance tracking setup",
+      ],
     },
     {
       title: "Storytelling Copy",
@@ -78,15 +77,15 @@ const Copywriting = () => {
         "Customer journey narratives",
         "Emotional hook creation",
         "Brand voice consistency",
-        "Multi-platform adaptation"
-      ]
-    }
+        "Multi-platform adaptation",
+      ],
+    },
   ];
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      
+      {/* Header is provided globally in App.tsx */}
+
       {/* Hero Section */}
       <section className="bg-gradient-secondary py-20">
         <div className="container mx-auto px-4 text-center">
@@ -98,7 +97,7 @@ const Copywriting = () => {
             we craft copy that drives results.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
+            <button
               onClick={() => {
                 document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
               }}
@@ -114,14 +113,12 @@ const Copywriting = () => {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Words That Work
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Words That Work</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               From viral social media posts to high-converting sales copy
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {services.map((service, index) => (
               <ServiceCard key={index} {...service} />

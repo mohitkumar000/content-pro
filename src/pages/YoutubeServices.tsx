@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Header from "@/components/layout/Header";
 import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
 
@@ -129,7 +128,6 @@ const YoutubeServices = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       
       {/* Hero Section */}
       <section className="bg-gradient-hero py-20">

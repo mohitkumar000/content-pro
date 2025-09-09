@@ -1,5 +1,5 @@
+// src/pages/Index.tsx
 import { useEffect, useState } from "react";
-import Header from "@/components/layout/Header";
 import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
 import { Button } from "@/components/ui/button";
@@ -50,7 +50,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      {/* NOTE: Header is provided globally in App.tsx - do NOT add it here */}
 
       {/* Hero Section */}
       <section className="bg-gradient-hero py-20 lg:py-32">
@@ -81,21 +81,20 @@ const Index = () => {
               Start Your Project
             </Button>
 
-        <Button
-  onClick={() =>
-    document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
-  }
-  variant="outline"
-  className="border-white text-white bg-white/20 hover:bg-white/30 px-8 py-6 text-lg transition-all"
->
-  View Services
-</Button>
-
+            <Button
+              onClick={() =>
+                document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
+              }
+              variant="outline"
+              className="border-white text-white bg-white/20 hover:bg-white/30 px-8 py-6 text-lg transition-all"
+            >
+              View Services
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* Social Proof Section (updated contrast & card styles) */}
+      {/* Social Proof Section */}
       <section className="py-16 bg-surface/80">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
