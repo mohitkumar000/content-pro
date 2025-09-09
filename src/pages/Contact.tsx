@@ -23,17 +23,17 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center py-8 px-4">
       <div className="w-full max-w-4xl mx-auto">
-        <div className="bg-card/90 rounded-2xl shadow-md p-6 md:p-10 overflow-hidden">
+        {/* NOTE: overflow-visible so the phone dropdown is not clipped */}
+        <div className="bg-card/90 rounded-2xl shadow-md p-6 md:p-10 overflow-visible">
           <h1 className="text-2xl md:text-3xl font-bold mb-3 text-center">Contact Us</h1>
           <p className="text-center mb-6 text-muted-foreground">
             Have questions or need our services? Fill out the form below and we’ll get back to you.
           </p>
 
-          {/* Grid: left = pricing select, right = form.
-              Use min-w-0 on children so they can shrink inside flex/grid. */}
+          {/* Grid: left = pricing select, right = form. min-w-0 allows children to shrink properly */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
             {/* Left: Optional pricing select */}
-            <div className="min-w-0"> {/* allows child to shrink */}
+            <div className="min-w-0">
               <label className="block text-sm font-medium text-muted-foreground mb-2">
                 Interested in a pricing plan? (optional)
               </label>
@@ -41,6 +41,7 @@ const Contact = () => {
                 value={selectedPlan}
                 onChange={(e) => setSelectedPlan(e.target.value)}
                 className="w-full border rounded-lg p-2 bg-white max-w-full"
+                aria-label="Select pricing plan (optional)"
               >
                 <option value="">Select a plan (optional)</option>
                 {PRICING_OPTIONS.map((opt) => (
@@ -56,7 +57,7 @@ const Contact = () => {
             </div>
 
             {/* Right: Form (passes subject prop) */}
-            <div className="min-w-0"> {/* critical: allows form inputs to shrink on small screens */}
+            <div className="min-w-0">
               <ContactForm subject={selectedPlan ? `Interest in ${selectedPlan}` : ""} />
             </div>
           </div>
