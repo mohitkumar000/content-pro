@@ -109,7 +109,7 @@ const Index = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="bg-card/70 rounded-2xl p-8 border border-border shadow-sm">
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">1000+</div>
+              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">100+</div>
               <div className="text-lg text-foreground font-medium mb-1">Creators Served</div>
               <div className="text-sm text-muted-foreground">Across all platforms</div>
             </div>
