@@ -13,7 +13,6 @@ const Contact = () => {
   const [selectedPlan, setSelectedPlan] = useState<string>("");
 
   useEffect(() => {
-    // If user came from Pricing page, PricingPage saves selectedService in localStorage
     const fromPricing = localStorage.getItem("selectedService");
     if (fromPricing) {
       setSelectedPlan(fromPricing);
@@ -22,26 +21,28 @@ const Contact = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center py-8">
-      <div className="w-full max-w-3xl mx-auto px-4">
-        <div className="bg-card/90 rounded-2xl shadow-md p-8 md:p-12">
-          <h1 className="text-3xl md:text-4xl font-bold mb-3 text-center">Contact Us</h1>
+    <div className="min-h-screen bg-background flex items-center justify-center py-8 px-4">
+      <div className="w-full max-w-4xl mx-auto">
+        <div className="bg-card/90 rounded-2xl shadow-md p-6 md:p-10 overflow-hidden">
+          <h1 className="text-2xl md:text-3xl font-bold mb-3 text-center">Contact Us</h1>
           <p className="text-center mb-6 text-muted-foreground">
             Have questions or need our services? Fill out the form below and we’ll get back to you.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Grid: left = pricing select, right = form.
+              Use min-w-0 on children so they can shrink inside flex/grid. */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
             {/* Left: Optional pricing select */}
-            <div className="flex flex-col justify-start">
+            <div className="min-w-0"> {/* allows child to shrink */}
               <label className="block text-sm font-medium text-muted-foreground mb-2">
                 Interested in a pricing plan? (optional)
               </label>
               <select
                 value={selectedPlan}
                 onChange={(e) => setSelectedPlan(e.target.value)}
-                className="w-full border rounded-lg p-2 bg-white"
+                className="w-full border rounded-lg p-2 bg-white max-w-full"
               >
-                <option value="">— Select a plan (optional) —</option>
+                <option value="">Select a plan (optional)</option>
                 {PRICING_OPTIONS.map((opt) => (
                   <option key={opt} value={opt}>
                     {opt}
@@ -55,8 +56,7 @@ const Contact = () => {
             </div>
 
             {/* Right: Form (passes subject prop) */}
-            <div>
-              {/* ContactForm will show the selected plan banner and prepend it to the message textarea */}
+            <div className="min-w-0"> {/* critical: allows form inputs to shrink on small screens */}
               <ContactForm subject={selectedPlan ? `Interest in ${selectedPlan}` : ""} />
             </div>
           </div>

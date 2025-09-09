@@ -9,7 +9,7 @@ interface ContactFormProps {
 
 const SELECTED_PREFIX = "Selected plan: ";
 
-// Expanded country list (commonly-used countries)
+// (Full expanded country list)
 const COUNTRIES = [
   { name: "Afghanistan", code: "AF", dial_code: "+93" },
   { name: "Albania", code: "AL", dial_code: "+355" },
@@ -177,7 +177,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
     setSelectedCountry(country);
   };
 
-  const handlePhoneLocalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhoneLocalChange = (e: React.ChangeEvent<HTMLInputElement>) => {  
     const digitsOnly = e.target.value.replace(/[^0-9]/g, "");
     setPhoneLocal(digitsOnly);
   };
@@ -243,7 +243,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
   const isDisabled = status === "sending" || status === "sent";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 w-full" aria-live="polite">
+    <form onSubmit={handleSubmit} className="space-y-4 w-full min-w-0" aria-live="polite">
       <input
         type="text"
         name="name"
@@ -252,7 +252,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full border rounded-lg p-2"
+        className="w-full border rounded-lg px-3 h-10 min-w-0"
       />
 
       <input
@@ -263,17 +263,17 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full border rounded-lg p-2"
+        className="w-full border rounded-lg px-3 h-10 min-w-0"
       />
 
-      {/* Country code + local phone input */}
-      <div className="flex gap-2">
+      {/* Country + phone: select smaller text & shorter width, phone input matched height */}
+      <div className="flex flex-col sm:flex-row gap-2 items-stretch">
         <select
           aria-label="Country code"
           value={selectedCountry.code}
           onChange={handleCountryChange}
           disabled={isDisabled}
-          className="w-40 border rounded-lg p-2 bg-white"
+          className="w-full sm:w-40 md:w-44 lg:w-44 max-w-full border rounded-lg px-3 h-10 bg-white min-w-0 text-sm"
         >
           {COUNTRIES.map((c) => (
             <option key={c.code} value={c.code}>
@@ -285,12 +285,12 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         <input
           type="tel"
           name="phoneLocal"
-          placeholder="Phone number"
+          placeholder="Mobile number"
           value={phoneLocal}
           onChange={handlePhoneLocalChange}
           required
           disabled={isDisabled}
-          className="flex-1 border rounded-lg p-2"
+          className="flex-1 border rounded-lg px-3 h-10 min-w-0 text-base"
         />
       </div>
 
@@ -311,7 +311,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full border rounded-lg p-2 h-36"
+        className="w-full border rounded-lg p-2 h-36 min-w-0"
       />
 
       <Button
