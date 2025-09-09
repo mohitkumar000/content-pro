@@ -20,6 +20,9 @@ const ContactForm = ({ subject }: ContactFormProps) => {
   // keep the selected plan text (without "Interest in " prefix)
   const [selectedPlan, setSelectedPlan] = useState<string>("");
 
+  // status: 'idle' | 'sending' | 'sent'
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+
   // track whether we've programmatically inserted the planNotice into the message
   const insertedRef = useRef(false);
 
@@ -58,8 +61,11 @@ const ContactForm = ({ subject }: ContactFormProps) => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Prevent duplicate submissions
+    if (status === "sending") return;
 
     // Basic validation
     if (!form.name || !form.email || !form.phone || !form.message) {
@@ -67,12 +73,17 @@ const ContactForm = ({ subject }: ContactFormProps) => {
       return;
     }
 
-    // Ensure message includes the plan notice; if user removed it, still send plan in subject/message
+    // Prepare final message (ensure plan is included)
     const planNotice = selectedPlan ? `${SELECTED_PREFIX}${selectedPlan}\n\n` : "";
-    const finalMessage = form.message.startsWith(SELECTED_PREFIX) ? form.message : `${planNotice}${form.message}`;
+    const finalMessage = form.message.startsWith(SELECTED_PREFIX)
+      ? form.message
+      : `${planNotice}${form.message}`;
 
-    emailjs
-      .send(
+    try {
+      setStatus("sending");
+
+      // send (EmailJS)
+      await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
@@ -83,21 +94,30 @@ const ContactForm = ({ subject }: ContactFormProps) => {
           subject: selectedPlan ? `Interest in ${selectedPlan}` : "General inquiry",
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      )
-      .then(() => {
-        alert("✅ Your message has been sent successfully!");
-        setForm({ name: "", email: "", phone: "", message: "" });
-        setSelectedPlan("");
-        insertedRef.current = false;
-      })
-      .catch((error) => {
-        console.error("❌ EmailJS Error:", error);
-        alert("Something went wrong. Please try again.");
-      });
+      );
+
+      // success
+      setStatus("sent");
+      alert("✅ Your message has been sent successfully!");
+
+      // reset form
+      setForm({ name: "", email: "", phone: "", message: "" });
+      setSelectedPlan("");
+      insertedRef.current = false;
+
+      // allow new submissions after a short confirmation period
+      setTimeout(() => setStatus("idle"), 1800);
+    } catch (error) {
+      console.error("❌ EmailJS Error:", error);
+      alert("Something went wrong while sending your message. Please try again.");
+      setStatus("idle");
+    }
   };
 
+  const isDisabled = status === "sending" || status === "sent";
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 w-full">
+    <form onSubmit={handleSubmit} className="space-y-4 w-full" aria-live="polite">
       <input
         type="text"
         name="name"
@@ -105,6 +125,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         value={form.name}
         onChange={handleChange}
         required
+        disabled={isDisabled}
         className="w-full border rounded-lg p-2"
       />
 
@@ -115,6 +136,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         value={form.email}
         onChange={handleChange}
         required
+        disabled={isDisabled}
         className="w-full border rounded-lg p-2"
       />
 
@@ -125,6 +147,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         value={form.phone}
         onChange={handleChange}
         required
+        disabled={isDisabled}
         className="w-full border rounded-lg p-2"
       />
 
@@ -144,11 +167,38 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         value={form.message}
         onChange={handleChange}
         required
+        disabled={isDisabled}
         className="w-full border rounded-lg p-2 h-36"
       />
 
-      <Button type="submit" className="w-full bg-gradient-primary">
-        Send Message
+      <Button
+        type="submit"
+        className="w-full bg-gradient-primary flex items-center justify-center gap-2"
+        disabled={isDisabled}
+        aria-disabled={isDisabled}
+      >
+        {status === "sending" ? (
+          <>
+            <svg
+              className="animate-spin h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="10" strokeWidth="4" stroke="currentColor" className="opacity-25" />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+              />
+            </svg>
+            Sending...
+          </>
+        ) : status === "sent" ? (
+          "Sent"
+        ) : (
+          "Send Message"
+        )}
       </Button>
     </form>
   );
