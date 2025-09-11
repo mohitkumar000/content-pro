@@ -21,48 +21,53 @@ const Contact = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center py-8 px-4">
-      <div className="w-full max-w-4xl mx-auto">
-        {/* NOTE: overflow-visible so the phone dropdown is not clipped */}
-        <div className="bg-card/90 rounded-2xl shadow-md p-6 md:p-10 overflow-visible">
-          <h1 className="text-2xl md:text-3xl font-bold mb-3 text-center">Contact Us</h1>
-          <p className="text-center mb-6 text-muted-foreground">
-            Have questions or need our services? Fill out the form below and we’ll get back to you.
-          </p>
+    <div className="min-h-screen bg-black">
+      <section className="py-12 px-6">
+        <div className="w-full max-w-5xl mx-auto">
+          {/* NOTE: overflow-visible so the phone dropdown is not clipped */}
+          <div className="bg-black rounded-3xl shadow-elevated p-8 md:p-12 overflow-visible border border-white/10">
+            
+            {/* Header */}
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-10 text-center">
+              Contact Us
+            </h2>
 
-          {/* Grid: left = pricing select, right = form. min-w-0 allows children to shrink properly */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-            {/* Left: Optional pricing select */}
-            <div className="min-w-0">
-              <label className="block text-sm font-medium text-muted-foreground mb-2">
-                Interested in a pricing plan? (optional)
-              </label>
-              <select
-                value={selectedPlan}
-                onChange={(e) => setSelectedPlan(e.target.value)}
-                className="w-full border rounded-lg p-2 bg-white max-w-full"
-                aria-label="Select pricing plan (optional)"
-              >
-                <option value="">Select a plan (optional)</option>
-                {PRICING_OPTIONS.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
-              </select>
+            {/* Grid: left = pricing select, right = form. min-w-0 allows children to shrink properly */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              {/* Left: Optional pricing select */}
+              <div className="min-w-0">
+                <div className="bg-black rounded-2xl p-6 border border-white/10">
+                  <label className="block text-lg font-semibold text-white mb-4">
+                    Interested in a pricing plan? (optional)
+                  </label>
+                  <select
+                    value={selectedPlan}
+                    onChange={(e) => setSelectedPlan(e.target.value)}
+                    className="w-full border border-white/20 rounded-xl p-4 bg-black text-white max-w-full focus:ring-2 focus:ring-white focus:border-white transition-all"
+                    aria-label="Select pricing plan (optional)"
+                  >
+                    <option value="">Select a plan (optional)</option>
+                    {PRICING_OPTIONS.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
 
-              <div className="mt-4 text-sm text-muted-foreground">
-                Selecting a plan will automatically include it in your message and in the email we receive.
+                  <div className="mt-6 text-sm text-white/70 leading-relaxed">
+                    Selecting a plan will automatically include it in your message and in the email we receive, helping us provide more targeted assistance.
+                  </div>
+                </div>
               </div>
-            </div>
 
-            {/* Right: Form (passes subject prop) */}
-            <div className="min-w-0">
-              <ContactForm subject={selectedPlan ? `Interest in ${selectedPlan}` : ""} />
+              {/* Right: Form (passes subject prop) */}
+              <div className="min-w-0">
+                <ContactForm subject={selectedPlan ? `Interest in ${selectedPlan}` : ""} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

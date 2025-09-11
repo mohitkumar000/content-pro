@@ -23,8 +23,8 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        {/* ✅ layout wrapper */}
-        <div className="flex flex-col min-h-screen">
+        {/* ✅ layout wrapper with dark theme + global background */}
+        <div className="flex flex-col min-h-screen dark app-bg">
           <Header /> {/* always visible */}
 
           <main className="flex-1">

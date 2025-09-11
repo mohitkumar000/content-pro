@@ -83,39 +83,60 @@ const Copywriting = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-black">
       {/* Header is provided globally in App.tsx */}
 
       {/* Hero Section */}
-      <section className="bg-gradient-secondary py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Professional Copywriting Services
-          </h1>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Words that convert, engage, and inspire action. From social media to sales pages,
-            we craft copy that drives results.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => {
-                document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="bg-white/20 hover:bg-white/30 text-white border border-white/30 px-8 py-3 rounded-lg transition-all"
-            >
-              Get Your Copy Today
-            </button>
+      {/* <section className="relative bg-black py-24 lg:py-32 overflow-hidden">
+        
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight">
+              Copy That
+              <span className="block bg-white text-black px-6 py-4 rounded-2xl mt-4 border border-black/10 shadow-elevated">
+                Converts & Sells
+              </span>
+            </h1>
+
+            <div className="text-2xl md:text-4xl font-semibold text-white/95 mb-8 leading-relaxed">
+              From Social Media to Sales Pages – Your Complete Copywriting Partner.
+            </div>
+
+            <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
+              Professional copywriting services to grow your brand, engage your audience,
+              and drive real business results across all platforms and channels.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button
+                onClick={() => {
+                  document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="bg-white text-black hover:bg-white/90 px-10 py-6 text-lg shadow-elevated hover:shadow-glow hover:scale-105 transition-all duration-300 font-semibold"
+              >
+                Start Your Project
+              </button>
+
+              <button
+                onClick={() =>
+                  document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="border-white/50 text-white bg-white/10 hover:bg-white/20 px-10 py-6 text-lg transition-all duration-300 backdrop-blur-sm hover:scale-105 font-semibold"
+              >
+                View Services
+              </button>
+            </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Services Grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Words That Work</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              From viral social media posts to high-converting sales copy
+      <section className="py-24 bg-black">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">Words That Work</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              From viral social media posts to high-converting sales copy that drives real business results
             </p>
           </div>
 
@@ -128,10 +149,18 @@ const Copywriting = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact-form" className="py-20 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <ContactForm />
+      <section id="contact-form" className="py-24 bg-black relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Ready to Transform Your Copy?
+            </h2>
+            <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+              Let's create copy that converts, engages, and drives the results you're looking for.
+            </p>
+            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-elevated">
+              <ContactForm />
+            </div>
           </div>
         </div>
       </section>
