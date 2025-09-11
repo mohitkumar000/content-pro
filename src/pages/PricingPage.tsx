@@ -92,7 +92,7 @@ const PricingPage: React.FC = () => {
       <div className="py-12 container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl font-extrabold bg-gradient-primary bg-clip-text text-transparent">
-            ContentPro Pricing
+            thegrowthgenie Pricing
           </h1>
           <p className="mt-4 text-muted-foreground">
             Choose a plan that fits your growth stage — transparent pricing, no hidden fees.
