@@ -45,7 +45,6 @@ const PricingCard = ({
       : "Businesses & serious creators aiming for 100K+ growth.";
 
   const handleGetStarted = () => {
-    // Save selected plan so Contact page can prefill subject (your pages already read localStorage.selectedService)
     localStorage.setItem("selectedService", title);
     navigate("/contact");
   };
@@ -53,7 +52,7 @@ const PricingCard = ({
   return (
     <div className="relative rounded-3xl border border-white/10 p-8 shadow-card hover:shadow-elevated transition-all duration-500 hover:-translate-y-2 bg-black group">
       {popular && (
-        <div className="absolute -top-4 left-8 bg-white text-black px-4 py-2 rounded-full text-sm font-semibold">
+        <div className="absolute -top-4 left-8 px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-pink-500 via-yellow-400 via-green-400 via-blue-500 to-purple-600 text-white shadow-md animate-gradient-x">
           Most Popular
         </div>
       )}
@@ -91,7 +90,6 @@ const PricingPage: React.FC = () => {
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
       <section className="py-16 container mx-auto px-6">
-
         <div className="grid gap-8 grid-cols-1 md:grid-cols-3 mb-16">
           <PricingCard
             title="Starter – $500/month"

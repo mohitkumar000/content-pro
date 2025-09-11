@@ -97,7 +97,7 @@ const OtherServices = () => {
     <div className="min-h-screen bg-black">
      
       {/* Hero Section */}
-      <section className="relative bg-black py-24 lg:py-32 overflow-hidden">
+      {/* <section className="relative bg-black py-24 lg:py-32 overflow-hidden">
         
         <div className="container mx-auto px-6 text-center relative z-10">
           <div className="max-w-5xl mx-auto">
@@ -138,7 +138,7 @@ const OtherServices = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Services Grid */}
       <section className="py-24 bg-black">

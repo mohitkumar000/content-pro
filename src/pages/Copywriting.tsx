@@ -87,7 +87,7 @@ const Copywriting = () => {
       {/* Header is provided globally in App.tsx */}
 
       {/* Hero Section */}
-      <section className="relative bg-black py-24 lg:py-32 overflow-hidden">
+      {/* <section className="relative bg-black py-24 lg:py-32 overflow-hidden">
         
         <div className="container mx-auto px-6 text-center relative z-10">
           <div className="max-w-5xl mx-auto">
@@ -128,7 +128,7 @@ const Copywriting = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Services Grid */}
       <section className="py-24 bg-black">
