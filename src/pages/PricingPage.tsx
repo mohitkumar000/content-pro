@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 const Feature = ({ children }: { children: React.ReactNode }) => (
   <li className="flex items-start gap-2">
     <svg
-      className="w-5 h-5 mt-0.5 text-primary flex-shrink-0"
+      className="w-5 h-5 mt-0.5 text-white flex-shrink-0"
       viewBox="0 0 20 20"
       fill="currentColor"
     >
@@ -17,7 +17,7 @@ const Feature = ({ children }: { children: React.ReactNode }) => (
         clipRule="evenodd"
       />
     </svg>
-    <span className="text-sm text-muted-foreground">{children}</span>
+    <span className="text-sm text-white/70">{children}</span>
   </li>
 );
 
@@ -51,33 +51,33 @@ const PricingCard = ({
   };
 
   return (
-    <div className="relative rounded-2xl border border-border p-6 shadow-sm bg-foreground/5">
+    <div className="relative rounded-3xl border border-white/10 p-8 shadow-card hover:shadow-elevated transition-all duration-500 hover:-translate-y-2 bg-black group">
       {popular && (
-        <div className="absolute -top-3 left-6 bg-primary text-white px-3 py-1 rounded-full text-xs font-semibold">
+        <div className="absolute -top-4 left-8 bg-white text-black px-4 py-2 rounded-full text-sm font-semibold">
           Most Popular
         </div>
       )}
 
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">{title}</h3>
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-xl font-semibold text-white">{title}</h3>
         <div className="text-right">
-          <div className="text-2xl font-bold text-primary">{price}</div>
-          {per && <div className="text-sm text-muted-foreground">{per}</div>}
+          <div className="text-3xl font-bold text-white">{price}</div>
+          {per && <div className="text-sm text-white/70">{per}</div>}
         </div>
       </div>
 
-      <p className="mt-4 text-sm text-muted-foreground">{description}</p>
+      <p className="mb-6 text-white/70 leading-relaxed">{description}</p>
 
-      <ul className="mt-4 space-y-2">
+      <ul className="space-y-3 mb-8">
         {highlights.map((h) => (
           <Feature key={h}>{h}</Feature>
         ))}
       </ul>
 
-      <div className="mt-6">
+      <div>
         <Button
           onClick={handleGetStarted}
-          className="w-full bg-gradient-primary px-6 py-4 text-lg"
+          className="w-full bg-white text-black hover:bg-white/90 px-6 py-4 text-lg hover:scale-105 transition-all duration-300 font-semibold"
         >
           Get Started
         </Button>
@@ -88,18 +88,11 @@ const PricingCard = ({
 
 const PricingPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="py-12 container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl font-extrabold bg-gradient-primary bg-clip-text text-transparent">
-            thegrowthgenie Pricing
-          </h1>
-          <p className="mt-4 text-muted-foreground">
-            Choose a plan that fits your growth stage — transparent pricing, no hidden fees.
-          </p>
-        </div>
+    <div className="min-h-screen bg-black">
+      {/* Hero Section */}
+      <section className="py-16 container mx-auto px-6">
 
-        <div className="mt-12 grid gap-6 grid-cols-1 md:grid-cols-3">
+        <div className="grid gap-8 grid-cols-1 md:grid-cols-3 mb-16">
           <PricingCard
             title="Starter – $500/month"
             price="$500"
@@ -147,21 +140,22 @@ const PricingPage: React.FC = () => {
           />
         </div>
 
-        <div className="mt-12 text-center">
-          <p className="text-muted-foreground">
-            Have custom requirements or want a custom enterprise plan?
-          </p>
-          <div className="mt-4 inline-flex gap-3">
-            {/* Enlarged prominent Contact Sales button */}
+        <div className="text-center">
+          <div className="bg-black rounded-3xl p-8 border border-white/10 shadow-elevated max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-white mb-4">
+              Need Something Custom?
+            </h3>
+            <p className="text-white/70 mb-6 leading-relaxed">
+              Have custom requirements or want a custom enterprise plan? We're here to help you find the perfect solution.
+            </p>
             <Link to="/contact">
-              <Button className="bg-gradient-primary px-6 py-4 text-lg shadow-glow">
+              <Button className="bg-white text-black hover:bg-white/90 px-8 py-4 text-lg hover:scale-105 transition-all duration-300 font-semibold">
                 Contact Sales
               </Button>
             </Link>
-            {/* See Services removed as requested */}
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

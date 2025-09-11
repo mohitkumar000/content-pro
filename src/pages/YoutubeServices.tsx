@@ -127,56 +127,102 @@ const YoutubeServices = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-black">
       
       {/* Hero Section */}
-      <section className="bg-gradient-hero py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            YouTube Automation Services
-          </h1>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            From scripting to analytics, we handle every aspect of your YouTube success. 
-            Focus on your vision while we handle the execution.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => {
-                document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="bg-white/20 hover:bg-white/30 text-white border border-white/30 px-8 py-3 rounded-lg transition-all"
-            >
-              Get Started Today
-            </button>
+      <section className="relative bg-black py-24 lg:py-32 overflow-hidden">
+        {/* YouTube background video */}
+        <div className="absolute inset-0 z-0">
+          <iframe
+            className="w-full h-full"
+            src="https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&playlist=ScMzIvxBSi4"
+            title="YouTube video background"
+            frameBorder="0"
+            allow="autoplay; fullscreen"
+            allowFullScreen
+          ></iframe>
+        </div>
+
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/70 z-10"></div>
+
+        {/* Content */}
+        <div className="container mx-auto px-6 text-center relative z-20">
+          <div className="max-w-5xl mx-auto">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight">
+              YouTube That
+              <span className="block bg-white text-black px-6 py-4 rounded-2xl mt-4 border border-black/10 shadow-elevated">
+                Scales & Converts
+              </span>
+            </h1>
+
+            <div className="text-2xl md:text-4xl font-semibold text-white/95 mb-8 leading-relaxed">
+              From Scripts to Analytics – Your Complete YouTube Growth Partner.
+            </div>
+
+            <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
+              Professional YouTube automation services to grow your channel, engage your audience,
+              and drive real business results with consistent, high-quality content.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button 
+                onClick={() => {
+                  document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="bg-white text-black hover:bg-white/90 px-10 py-6 text-lg shadow-elevated hover:shadow-glow hover:scale-105 transition-all duration-300 font-semibold"
+              >
+                Start Your Project
+              </button>
+
+              <button
+                onClick={() =>
+                  document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="border-white/50 text-white bg-white/10 hover:bg-white/20 px-10 py-6 text-lg transition-all duration-300 backdrop-blur-sm hover:scale-105 font-semibold"
+              >
+                View Services
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+      <section id="services" className="py-24 bg-black">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
               Complete YouTube Solutions
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to build, grow, and monetize your YouTube channel
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Everything you need to build, grow, and monetize your YouTube channel with professional quality
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {services.map((service, index) => (
-              <ServiceCard key={index} {...service} />
+              <div key={index} className="bg-grid-lines rounded-2xl p-1">
+                <ServiceCard {...service} />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact-form" className="py-20 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <ContactForm subject={selectedService ? `Interest in ${selectedService}` : ""} />
+      <section id="contact-form" className="py-24 bg-black relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Ready to Scale Your YouTube Channel?
+            </h2>
+            <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+              Let's discuss how we can help you achieve your YouTube goals with our comprehensive automation services.
+            </p>
+            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-elevated">
+              <ContactForm subject={selectedService ? `Interest in ${selectedService}` : ""} />
+            </div>
           </div>
         </div>
       </section>
