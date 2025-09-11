@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
           <div className="flex items-center justify-center md:justify-start gap-2">
             <div className="w-8 h-8 bg-gradient-primary rounded-lg"></div>
             <span className="text-lg font-bold bg-gradient-primary bg-clip-text text-transparent">
-              ContentPro
+              thegrowthgenie
             </span>
           </div>
           <p className="mt-3 text-sm text-muted-foreground">
@@ -48,10 +48,10 @@ const Footer: React.FC = () => {
           <p className="text-sm text-muted-foreground">
             📧 Email:{" "}
             <a
-              href="mailto:contentpro918@gmail.com"
+              href="mailto: team@thegrowthgenie.com"
               className="text-primary hover:underline"
             >
-              contentpro918@gmail.com
+               team@thegrowthgenie.com
             </a>
           </p>
           <p className="text-sm text-muted-foreground mt-2">
@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
 
       <div className="border-t border-border mt-8">
         <div className="container mx-auto px-4 py-4 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} ContentPro. All rights reserved.
+          © {new Date().getFullYear()} thegrowthgenie. All rights reserved.
         </div>
       </div>
     </footer>
