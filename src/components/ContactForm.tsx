@@ -1,4 +1,3 @@
-// src/components/ContactForm.tsx
 import { useEffect, useRef, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -124,7 +123,14 @@ const ContactForm = ({ subject }: ContactFormProps) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-5 w-full min-w-0 bg-white/10 backdrop-blur-xl rounded-2xl shadow-lg p-8 border border-white/20"
+      className="
+        space-y-5 w-full min-w-0
+        bg-white/5 backdrop-blur-xl
+        rounded-none md:rounded-2xl
+        shadow-lg
+        p-6 sm:p-8 md:p-10
+        border border-transparent md:border-white/20
+      "
       aria-live="polite"
     >
       <input
@@ -135,7 +141,9 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full h-12 px-4 rounded-lg border border-gray-300 bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-indigo-500"
+        className="w-full h-14 px-4 rounded-lg border border-gray-300 
+                   bg-white text-black placeholder-gray-500 
+                   focus:ring-2 focus:ring-indigo-500 text-base"
       />
 
       <input
@@ -146,7 +154,9 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full h-12 px-4 rounded-lg border border-gray-300 bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-indigo-500"
+        className="w-full h-14 px-4 rounded-lg border border-gray-300 
+                   bg-white text-black placeholder-gray-500 
+                   focus:ring-2 focus:ring-indigo-500 text-base"
       />
 
       {/* Phone Input */}
@@ -158,9 +168,9 @@ const ContactForm = ({ subject }: ContactFormProps) => {
           disabled={isDisabled}
           inputProps={{ name: "phone", required: true }}
           inputStyle={{
-            height: 48,
+            height: 56,
             width: "100%",
-            fontSize: 15,
+            fontSize: 16,
             paddingLeft: 60,
             borderRadius: 10,
             backgroundColor: "#fff",
@@ -168,7 +178,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
             border: "1px solid #ccc",
           }}
           buttonStyle={{
-            height: 48,
+            height: 56,
             width: 60,
             borderRadius: 10,
             backgroundColor: "#f9f9f9",
@@ -193,7 +203,9 @@ const ContactForm = ({ subject }: ContactFormProps) => {
           value={form.referral}
           onChange={handleChange}
           disabled={isDisabled}
-          className="w-full h-12 px-4 rounded-lg border border-gray-300 bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-indigo-500"
+          className="w-full h-14 px-4 rounded-lg border border-gray-300 
+                     bg-white text-black placeholder-gray-500 
+                     focus:ring-2 focus:ring-indigo-500 text-base"
         />
         {referralStatus === "valid" && (
           <p className="text-green-600 text-sm mt-1">✅ Referral code valid</p>
@@ -219,23 +231,36 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full h-32 px-4 rounded-lg border border-gray-300 bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-indigo-500"
+        className="w-full h-40 px-4 rounded-lg border border-gray-300 
+                   bg-white text-black placeholder-gray-500 
+                   focus:ring-2 focus:ring-indigo-500 text-base"
       />
 
       <Button
         type="submit"
         disabled={isDisabled}
-        className="w-full h-12 bg-gradient-to-r from-indigo-500 to-blue-600 text-white rounded-lg shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300 font-semibold"
+        className="w-full h-14 text-lg
+                   bg-gradient-to-r from-indigo-500 to-blue-600 
+                   text-white rounded-lg shadow-md 
+                   hover:shadow-lg hover:scale-[1.02] 
+                   transition-all duration-300 font-semibold"
       >
         {status === "sending" ? (
           <>
             <svg
-              className="animate-spin h-4 w-4 mr-2"
+              className="animate-spin h-5 w-5 mr-2"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
             >
-              <circle cx="12" cy="12" r="10" strokeWidth="4" stroke="currentColor" className="opacity-25" />
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                strokeWidth="4"
+                stroke="currentColor"
+                className="opacity-25"
+              />
               <path
                 className="opacity-75"
                 fill="currentColor"
