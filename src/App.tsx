@@ -14,6 +14,7 @@ import Copywriting from "./pages/Copywriting";
 import OtherServices from "./pages/OtherServices";
 import Contact from "./pages/Contact";
 import PricingPage from "./pages/PricingPage";
+import OurWork from "./pages/OurWork"; // ✅ import the new page
 
 const queryClient = new QueryClient();
 
@@ -35,7 +36,8 @@ const App = () => (
               <Route path="/other-services" element={<OtherServices />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/pricing" element={<PricingPage />} />
-              
+              <Route path="/our-work" element={<OurWork />} /> {/* ✅ new route */}
+
               {/* keep this last */}
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -80,12 +80,20 @@ const Index = () => {
               within budget — ensuring accessibility for everyone.
             </p>
 
-            <div className="flex justify-center mb-6">
+            {/* CTA Buttons */}
+            <div className="flex justify-center mb-6 gap-4">
               <Button
                 onClick={() => navigate("/pricing")}
                 className="px-10 py-5 text-lg bg-gradient-to-r from-indigo-500 to-blue-600 hover:opacity-90 shadow-lg hover:shadow-indigo-500/40 transition-all duration-300"
               >
                 Our Pricing
+              </Button>
+
+              <Button
+                onClick={() => navigate("/our-work")}
+                className="px-10 py-5 text-lg bg-gradient-to-r from-purple-500 to-pink-600 hover:opacity-90 shadow-lg hover:shadow-pink-500/40 transition-all duration-300"
+              >
+                Our Work
               </Button>
             </div>
 
