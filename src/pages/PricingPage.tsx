@@ -50,7 +50,7 @@ const PricingCard = ({
   };
 
   return (
-    <div className="relative rounded-3xl border border-white/10 p-8 shadow-card hover:shadow-elevated transition-all duration-500 hover:-translate-y-2 bg-black group">
+    <div className="relative rounded-3xl border border-white/10 p-8 shadow-card hover:shadow-elevated transition-all duration-500 hover:-translate-y-2 bg-black/60 backdrop-blur-xl group">
       {popular && (
         <div className="absolute -top-4 left-8 px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-pink-500 via-yellow-400 via-green-400 via-blue-500 to-purple-600 text-white shadow-md animate-gradient-x">
           Most Popular
@@ -87,9 +87,26 @@ const PricingCard = ({
 
 const PricingPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen text-white relative overflow-hidden">
+      {/* 🔥 3D Grid Background (same as OtherServices) */}
+      <div className="absolute inset-0 -z-10 bg-black">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `
+              linear-gradient(transparent 97%, rgba(255,255,255,0.15) 100%),
+              linear-gradient(90deg, transparent 97%, rgba(255,255,255,0.15) 100%)
+            `,
+            backgroundSize: "50px 50px",
+            transform: "perspective(600px) rotateX(60deg)",
+            transformOrigin: "center top",
+          }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95 -z-10"></div>
+
       {/* Hero Section */}
-      <section className="py-16 container mx-auto px-6">
+      <section className="py-16 container mx-auto px-6 relative z-10">
         <div className="grid gap-8 grid-cols-1 md:grid-cols-3 mb-16">
           <PricingCard
             title="Starter – $500/month"
@@ -138,8 +155,9 @@ const PricingPage: React.FC = () => {
           />
         </div>
 
-        <div className="text-center">
-          <div className="bg-black rounded-3xl p-8 border border-white/10 shadow-elevated max-w-2xl mx-auto">
+        {/* Custom Section */}
+        <div className="text-center relative z-10">
+          <div className="bg-black/60 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-elevated max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-white mb-4">
               Need Something Custom?
             </h3>

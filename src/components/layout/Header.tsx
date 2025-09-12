@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
 
@@ -9,6 +9,13 @@ const Header = () => {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
+
+  // ✅ Track if we are on the contact page
+  const [isContactPage, setIsContactPage] = useState(location.pathname === "/contact");
+
+  useEffect(() => {
+    setIsContactPage(location.pathname === "/contact");
+  }, [location.pathname]);
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -21,14 +28,13 @@ const Header = () => {
   return (
     <header className="sticky top-4 z-50 w-[95%] mx-auto rounded-2xl bg-black/40 backdrop-blur-xl border border-white/10 shadow-lg">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-        
         {/* Logo */}
         <Link to="/" className="flex items-center group">
           {!logoError ? (
             <img
               src={logo}
               alt="thegrowthgenie logo"
-              className="h-14 w-auto object-contain transition-transform group-hover:scale-105" 
+              className="h-14 w-auto object-contain transition-transform group-hover:scale-105"
               onError={() => setLogoError(true)}
             />
           ) : (
@@ -58,24 +64,28 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* Desktop CTA Button */}
-        <div className="hidden md:flex items-center">
-          <Button
-            onClick={() => navigate("/contact")}
-            className="rounded-full bg-blue-600 text-white hover:bg-blue-500 transition-all px-6 py-2 shadow-md hover:shadow-lg"
-          >
-            Get Started
-          </Button>
-        </div>
+        {/* Desktop CTA Button (hidden on /contact) */}
+        {!isContactPage && (
+          <div className="hidden md:flex items-center">
+            <Button
+              onClick={() => navigate("/contact")}
+              className="rounded-full bg-blue-600 text-white hover:bg-blue-500 transition-all px-6 py-2 shadow-md hover:shadow-lg"
+            >
+              Get Started
+            </Button>
+          </div>
+        )}
 
         {/* Mobile menu button */}
         <div className="md:hidden flex items-center space-x-3">
-          <Button
-            onClick={() => navigate("/contact")}
-            className="rounded-full bg-blue-600 text-white hover:bg-blue-500 transition-all text-sm px-5 py-2"
-          >
-            Contact
-          </Button>
+          {!isContactPage && (
+            <Button
+              onClick={() => navigate("/contact")}
+              className="rounded-full bg-blue-600 text-white hover:bg-blue-500 transition-all text-sm px-5 py-2"
+            >
+              Contact
+            </Button>
+          )}
           <Button
             onClick={() => setMobileOpen(!mobileOpen)}
             variant="ghost"

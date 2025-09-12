@@ -1,4 +1,3 @@
-// src/pages/Index.tsx
 import { useEffect, useState } from "react";
 import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
@@ -54,37 +53,33 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black">
-      {/* Hero Section */}
-      <section className="relative py-28 lg:py-40 overflow-hidden bg-black">
-        {/* Gradient background */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(222,90%,60%,0.3),transparent_60%)]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,hsl(280,90%,50%,0.3),transparent_60%)]"></div>
-        </div>
+    <div className="relative min-h-screen bg-black text-white overflow-hidden">
+      {/* 🌌 Starfield Background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.2)_1px,transparent_1px)] bg-[length:40px_40px] animate-twinkle"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/40 via-black to-purple-900/40"></div>
+      </div>
 
-        <div className="container mx-auto px-6 text-center relative z-10">
+      {/* Hero Section */}
+      <section className="relative py-28 lg:py-40 overflow-hidden z-10">
+        <div className="container mx-auto px-6 text-center">
           <div className="max-w-4xl mx-auto">
-            {/* Badge */}
             <div className="inline-block px-4 py-1.5 mb-6 rounded-full border border-white/20 bg-white/5 text-sm text-white/80">
               100% Premium Content Services
             </div>
 
-            {/* Main Heading */}
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6">
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
               Unlimited Content, <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
                 Single Monthly Charge
               </span>
             </h1>
 
-            {/* Subheading */}
             <p className="text-xl md:text-2xl text-white/80 leading-relaxed mb-10">
               TheGrowthGenie delivers professional content & YouTube services
               within budget — ensuring accessibility for everyone.
             </p>
 
-            {/* CTA Button */}
             <div className="flex justify-center mb-6">
               <Button
                 onClick={() => navigate("/pricing")}
@@ -94,7 +89,6 @@ const Index = () => {
               </Button>
             </div>
 
-            {/* Extra Note */}
             <p className="text-sm text-white/60">
               Pause or cancel anytime. No hidden commitments.
             </p>
@@ -102,8 +96,28 @@ const Index = () => {
         </div>
       </section>
 
+      {/* 🚀 Floating Services Line */}
+      <div className="relative overflow-hidden py-6 border-y border-white/10 bg-black/40 z-10">
+        <div className="animate-marquee whitespace-nowrap flex items-center gap-16 text-white/80 text-lg font-medium">
+          <div className="flex items-center gap-2">▶️ YouTube Automation</div>
+          <div className="flex items-center gap-2">🎬 Video Editing</div>
+          <div className="flex items-center gap-2">✍️ Copywriting</div>
+          <div className="flex items-center gap-2">📊 Analytics</div>
+          <div className="flex items-center gap-2">🖼️ Thumbnail Design</div>
+          <div className="flex items-center gap-2">🚀 Growth Strategy</div>
+
+          {/* Duplicate for smooth loop */}
+          <div className="flex items-center gap-2">▶️ YouTube Automation</div>
+          <div className="flex items-center gap-2">🎬 Video Editing</div>
+          <div className="flex items-center gap-2">✍️ Copywriting</div>
+          <div className="flex items-center gap-2">📊 Analytics</div>
+          <div className="flex items-center gap-2">🖼️ Thumbnail Design</div>
+          <div className="flex items-center gap-2">🚀 Growth Strategy</div>
+        </div>
+      </div>
+
       {/* Social Proof Section */}
-      <section className="py-20 bg-black">
+      <section className="py-20 relative z-10">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
@@ -150,7 +164,7 @@ const Index = () => {
       </section>
 
       {/* Services Overview */}
-      <section id="services" className="py-24 bg-black">
+      <section id="services" className="py-24 relative z-10">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -188,7 +202,7 @@ const Index = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 bg-black">
+      <section className="py-24 relative z-10">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -257,7 +271,7 @@ const Index = () => {
       {/* Contact Section */}
       <section
         id="contact-form"
-        className="py-24 bg-black relative overflow-hidden"
+        className="py-24 relative overflow-hidden z-10"
       >
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
