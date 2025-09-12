@@ -22,57 +22,50 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Starfield Background */}
+      {/* Background */}
       <div className="absolute inset-0 -z-10 bg-black">
         <canvas id="starfield" className="w-full h-full"></canvas>
       </div>
 
       {/* Main Content */}
-      <section className="py-12 px-6">
-        <div className="w-full max-w-5xl mx-auto">
-          {/* Outer Container */}
-          <div className="bg-black/40 rounded-3xl shadow-elevated p-8 md:p-12 overflow-visible border border-white/10 backdrop-blur-xl">
-            {/* Header */}
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-10 text-center">
-              Contact Us
-            </h2>
+      <section className="py-12 px-4 sm:px-6">
+        <div className="w-full max-w-4xl mx-auto">
+          {/* Header */}
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-10 text-center">
+            Contact Us
+          </h2>
 
-            {/* Grid: Left = pricing select, Right = form */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-              {/* Left: Pricing Select */}
-              <div className="min-w-0">
-                <div className="bg-black/50 backdrop-blur-xl rounded-2xl p-6 border border-white/10">
-                  <label className="block text-lg font-semibold text-white mb-4">
-                    Interested in a pricing plan? (optional)
-                  </label>
-                  <select
-                    value={selectedPlan}
-                    onChange={(e) => setSelectedPlan(e.target.value)}
-                    className="w-full border border-white/20 rounded-xl p-4 bg-black text-white max-w-full focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-                    aria-label="Select pricing plan (optional)"
-                  >
-                    <option value="">Select a plan (optional)</option>
-                    {PRICING_OPTIONS.map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
-                      </option>
-                    ))}
-                  </select>
+          {/* Grid: Pricing (optional) + Contact Form */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            {/* Left: Pricing Select */}
+            <div className="w-full">
+              <label className="block text-lg font-semibold text-white mb-4">
+                Interested in a pricing plan? (optional)
+              </label>
+              <select
+                value={selectedPlan}
+                onChange={(e) => setSelectedPlan(e.target.value)}
+                className="w-full border border-white/20 rounded-xl p-4 bg-black/60 text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+              >
+                <option value="">Select a plan (optional)</option>
+                {PRICING_OPTIONS.map((opt) => (
+                  <option key={opt} value={opt}>
+                    {opt}
+                  </option>
+                ))}
+              </select>
 
-                  <div className="mt-6 text-sm text-white/70 leading-relaxed">
-                    Selecting a plan will automatically include it in your
-                    message and in the email we receive, helping us provide more
-                    targeted assistance.
-                  </div>
-                </div>
-              </div>
+              <p className="mt-4 text-sm text-white/70 leading-relaxed">
+                Selecting a plan will automatically include it in your message
+                and in the email we receive.
+              </p>
+            </div>
 
-              {/* Right: Contact Form */}
-              <div className="min-w-0">
-                <ContactForm
-                  subject={selectedPlan ? `Interest in ${selectedPlan}` : ""}
-                />
-              </div>
+            {/* Right: Contact Form */}
+            <div className="w-full">
+              <ContactForm
+                subject={selectedPlan ? `Interest in ${selectedPlan}` : ""}
+              />
             </div>
           </div>
         </div>
