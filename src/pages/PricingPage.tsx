@@ -109,8 +109,8 @@ const PricingPage: React.FC = () => {
       <section className="py-16 container mx-auto px-6 relative z-10">
         <div className="grid gap-8 grid-cols-1 md:grid-cols-3 mb-16">
           <PricingCard
-            title="Starter – $500/month"
-            price="$500"
+            title="Starter – $699/month"
+            price="$699"
             per="/month"
             highlights={[
               "4 high-quality videos per month",
@@ -123,8 +123,8 @@ const PricingPage: React.FC = () => {
           />
 
           <PricingCard
-            title="Growth – $1,500/month"
-            price="$1,500"
+            title="Growth – $1499/month"
+            price="$1499"
             per="/month"
             popular
             highlights={[
@@ -139,8 +139,8 @@ const PricingPage: React.FC = () => {
           />
 
           <PricingCard
-            title="Scale – $3,000/month"
-            price="$3,000"
+            title="Scale – $2999/month"
+            price="$2999"
             per="/month"
             highlights={[
               "8 high-quality videos per month",
