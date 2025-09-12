@@ -1,3 +1,4 @@
+// src/pages/Copywriting.tsx
 import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
 
@@ -83,87 +84,65 @@ const Copywriting = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black">
-      {/* Header is provided globally in App.tsx */}
+    <div className="min-h-screen text-white relative overflow-hidden">
+      {/* 3D Grid Background */}
+      <div className="absolute inset-0 -z-10 bg-black">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `
+              linear-gradient(transparent 97%, rgba(255,255,255,0.15) 100%),
+              linear-gradient(90deg, transparent 97%, rgba(255,255,255,0.15) 100%)
+            `,
+            backgroundSize: "50px 50px",
+            transform: "perspective(600px) rotateX(60deg)",
+            transformOrigin: "center top",
+          }}
+        />
+      </div>
 
-      {/* Hero Section */}
-      {/* <section className="relative bg-black py-24 lg:py-32 overflow-hidden">
-        
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <div className="max-w-5xl mx-auto">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight">
-              Copy That
-              <span className="block bg-white text-black px-6 py-4 rounded-2xl mt-4 border border-black/10 shadow-elevated">
-                Converts & Sells
-              </span>
-            </h1>
+      {/* Overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95 -z-10"></div>
 
-            <div className="text-2xl md:text-4xl font-semibold text-white/95 mb-8 leading-relaxed">
-              From Social Media to Sales Pages – Your Complete Copywriting Partner.
+      {/* Page Content */}
+      <div className="relative z-10">
+        {/* Hero Section */}
+
+        {/* Services Grid */}
+        <section className="py-24">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-20">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">Copywriting Services</h2>
+              <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+                From social media to blogs, ads, and emails — we deliver copy that converts.
+              </p>
             </div>
 
-            <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
-              Professional copywriting services to grow your brand, engage your audience,
-              and drive real business results across all platforms and channels.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button
-                onClick={() => {
-                  document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="bg-white text-black hover:bg-white/90 px-10 py-6 text-lg shadow-elevated hover:shadow-glow hover:scale-105 transition-all duration-300 font-semibold"
-              >
-                Start Your Project
-              </button>
-
-              <button
-                onClick={() =>
-                  document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="border-white/50 text-white bg-white/10 hover:bg-white/20 px-10 py-6 text-lg transition-all duration-300 backdrop-blur-sm hover:scale-105 font-semibold"
-              >
-                View Services
-              </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+              {services.map((service, index) => (
+                <ServiceCard key={index} {...service} />
+              ))}
             </div>
           </div>
-        </div>
-      </section> */}
+        </section>
 
-      {/* Services Grid */}
-      <section className="py-24 bg-black">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">Words That Work</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              From viral social media posts to high-converting sales copy that drives real business results
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-            {services.map((service, index) => (
-              <ServiceCard key={index} {...service} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact-form" className="py-24 bg-black relative overflow-hidden">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Ready to Transform Your Copy?
-            </h2>
-            <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-              Let's create copy that converts, engages, and drives the results you're looking for.
-            </p>
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-elevated">
-              <ContactForm />
+        {/* Contact Section */}
+        <section id="contact-form" className="py-24 relative overflow-hidden">
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                Ready to Transform Your Copy?
+              </h2>
+              <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+                Let's create copy that converts, engages, and drives the results you're looking for.
+              </p>
+              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-elevated">
+                <ContactForm />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 };

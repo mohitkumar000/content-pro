@@ -1,7 +1,7 @@
+// src/pages/YoutubeServices.tsx
 import { useEffect, useState } from "react";
 import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
-import youtube from "@/assets/youtube.png"; // 👈 background image
 
 const YoutubeServices = () => {
   const [selectedService, setSelectedService] = useState("");
@@ -23,8 +23,8 @@ const YoutubeServices = () => {
         "Hook writing and storytelling",
         "SEO-optimized scripts",
         "Call-to-action integration",
-        "Multiple revision rounds"
-      ]
+        "Multiple revision rounds",
+      ],
     },
     {
       title: "Video Editing",
@@ -34,8 +34,8 @@ const YoutubeServices = () => {
         "Color grading and audio mixing",
         "Motion graphics and effects",
         "Captions and subtitles",
-        "Thumbnail creation included"
-      ]
+        "Thumbnail creation included",
+      ],
     },
     {
       title: "Thumbnail Design",
@@ -45,8 +45,8 @@ const YoutubeServices = () => {
         "Eye-catching visuals",
         "Platform optimization",
         "Brand consistency",
-        "Fast 24-hour turnaround"
-      ]
+        "Fast 24-hour turnaround",
+      ],
     },
     {
       title: "SEO Optimization",
@@ -56,8 +56,8 @@ const YoutubeServices = () => {
         "Optimized titles and descriptions",
         "Strategic tag placement",
         "Hashtag strategies",
-        "Competitor analysis"
-      ]
+        "Competitor analysis",
+      ],
     },
     {
       title: "Channel Setup & Branding",
@@ -67,8 +67,8 @@ const YoutubeServices = () => {
         "Profile optimization",
         "Playlist organization",
         "Brand guideline creation",
-        "Channel trailer scripting"
-      ]
+        "Channel trailer scripting",
+      ],
     },
     {
       title: "Content Strategy",
@@ -78,8 +78,8 @@ const YoutubeServices = () => {
         "Content calendar creation",
         "Trend analysis and forecasting",
         "Competitor research",
-        "Performance tracking setup"
-      ]
+        "Performance tracking setup",
+      ],
     },
     {
       title: "YouTube Shorts Creation",
@@ -89,8 +89,8 @@ const YoutubeServices = () => {
         "Trending audio integration",
         "Viral hook techniques",
         "Platform-specific optimization",
-        "Batch content creation"
-      ]
+        "Batch content creation",
+      ],
     },
     {
       title: "Voiceover Services",
@@ -100,8 +100,8 @@ const YoutubeServices = () => {
         "Multiple tone variations",
         "Script timing optimization",
         "Audio quality enhancement",
-        "Multiple language support"
-      ]
+        "Multiple language support",
+      ],
     },
     {
       title: "End Screens & Cards",
@@ -111,8 +111,8 @@ const YoutubeServices = () => {
         "Card placement strategy",
         "Conversion funnel design",
         "Viewer retention analysis",
-        "A/B testing setup"
-      ]
+        "A/B testing setup",
+      ],
     },
     {
       title: "Analytics & Growth Reports",
@@ -122,23 +122,34 @@ const YoutubeServices = () => {
         "Growth trend analysis",
         "Performance optimization tips",
         "Competitor benchmarking",
-        "Monthly strategy sessions"
-      ]
-    }
+        "Monthly strategy sessions",
+      ],
+    },
   ];
 
   return (
-    <div
-      className="min-h-screen text-white"
-      style={{
-        backgroundImage: `url(${youtube})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed", // 👈 sticks background
-      }}
-    >
-      {/* Overlay */}
-      <div className="bg-black/70 min-h-screen">
+    <div className="min-h-screen text-white relative overflow-hidden">
+      {/* 3D Grid Background */}
+      <div className="absolute inset-0 -z-10 bg-black">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `
+              linear-gradient(transparent 97%, rgba(255,255,255,0.15) 100%),
+              linear-gradient(90deg, transparent 97%, rgba(255,255,255,0.15) 100%)
+            `,
+            backgroundSize: "50px 50px", // grid tighter
+            transform: "perspective(600px) rotateX(60deg)",
+            transformOrigin: "center top",
+          }}
+        />
+      </div>
+
+      {/* Overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95 -z-10"></div>
+
+      {/* Page Content */}
+      <div className="relative z-10">
         {/* Hero Section */}
         <section className="relative py-24 lg:py-32 overflow-hidden">
           <div className="container mx-auto px-6 text-center relative z-20">
@@ -155,14 +166,17 @@ const YoutubeServices = () => {
               </div>
 
               <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
-                Professional YouTube automation services to grow your channel, engage your
-                audience, and drive real business results with consistent, high-quality content.
+                Professional YouTube automation services to grow your channel, engage
+                your audience, and drive real business results with consistent,
+                high-quality content.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
                 <button
                   onClick={() => {
-                    document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
+                    document
+                      .getElementById("contact-form")
+                      ?.scrollIntoView({ behavior: "smooth" });
                   }}
                   className="bg-white text-black hover:bg-white/90 px-10 py-6 text-lg shadow-elevated hover:shadow-glow hover:scale-105 transition-all duration-300 font-semibold"
                 >
@@ -171,7 +185,9 @@ const YoutubeServices = () => {
 
                 <button
                   onClick={() =>
-                    document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
+                    document
+                      .getElementById("services")
+                      ?.scrollIntoView({ behavior: "smooth" })
                   }
                   className="border-white/50 text-white bg-white/10 hover:bg-white/20 px-10 py-6 text-lg transition-all duration-300 backdrop-blur-sm hover:scale-105 font-semibold"
                 >
@@ -190,8 +206,8 @@ const YoutubeServices = () => {
                 Complete YouTube Solutions
               </h2>
               <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
-                Everything you need to build, grow, and monetize your YouTube channel with
-                professional quality
+                Everything you need to build, grow, and monetize your YouTube channel
+                with professional quality
               </p>
             </div>
 
@@ -213,12 +229,14 @@ const YoutubeServices = () => {
                 Ready to Scale Your YouTube Channel?
               </h2>
               <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-                Let's discuss how we can help you achieve your YouTube goals with our comprehensive
-                automation services.
+                Let's discuss how we can help you achieve your YouTube goals with our
+                comprehensive automation services.
               </p>
               <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-elevated">
                 <ContactForm
-                  subject={selectedService ? `Interest in ${selectedService}` : ""}
+                  subject={
+                    selectedService ? `Interest in ${selectedService}` : ""
+                  }
                 />
               </div>
             </div>

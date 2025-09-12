@@ -22,8 +22,8 @@ const OtherServices = () => {
         "Content calendar development",
         "Audience analysis and targeting",
         "Hashtag research and optimization",
-        "Cross-platform integration"
-      ]
+        "Cross-platform integration",
+      ],
     },
     {
       title: "Content Repurposing",
@@ -33,8 +33,8 @@ const OtherServices = () => {
         "Platform optimization",
         "SEO adaptation",
         "Visual asset creation",
-        "Content series development"
-      ]
+        "Content series development",
+      ],
     },
     {
       title: "Podcast Show Notes & Summaries",
@@ -44,8 +44,8 @@ const OtherServices = () => {
         "SEO-optimized show notes",
         "Episode summaries",
         "Timestamp creation",
-        "Social media snippets"
-      ]
+        "Social media snippets",
+      ],
     },
     {
       title: "Research & Fact-Checking",
@@ -55,8 +55,8 @@ const OtherServices = () => {
         "Industry expert consultation",
         "Statistical analysis",
         "Compliance checking",
-        "Citation and reference formatting"
-      ]
+        "Citation and reference formatting",
+      ],
     },
     {
       title: "Ghostwriting (Books/Guides)",
@@ -66,8 +66,8 @@ const OtherServices = () => {
         "Lead magnet creation",
         "Course material development",
         "White paper writing",
-        "Industry report creation"
-      ]
+        "Industry report creation",
+      ],
     },
     {
       title: "Script-to-Blog Conversion",
@@ -77,8 +77,8 @@ const OtherServices = () => {
         "SEO optimization",
         "Article structuring",
         "Visual content suggestions",
-        "Call-to-action integration"
-      ]
+        "Call-to-action integration",
+      ],
     },
     {
       title: "Content Calendar Management",
@@ -88,60 +88,32 @@ const OtherServices = () => {
         "Content theme planning",
         "Seasonal content preparation",
         "Performance tracking setup",
-        "Team collaboration tools"
-      ]
-    }
+        "Team collaboration tools",
+      ],
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-black">
-     
-      {/* Hero Section */}
-      {/* <section className="relative bg-black py-24 lg:py-32 overflow-hidden">
-        
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <div className="max-w-5xl mx-auto">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight">
-              Services That
-              <span className="block bg-white text-black px-6 py-4 rounded-2xl mt-4 border border-black/10 shadow-elevated">
-                Complete & Scale
-              </span>
-            </h1>
-
-            <div className="text-2xl md:text-4xl font-semibold text-white/95 mb-8 leading-relaxed">
-              From Research to Repurposing – Your Complete Content Ecosystem Partner.
-            </div>
-
-            <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
-              Specialized content solutions to complete your digital marketing ecosystem.
-              From research to repurposing, we've got every aspect of your content strategy covered.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button 
-                onClick={() => {
-                  document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="bg-white text-black hover:bg-white/90 px-10 py-6 text-lg shadow-elevated hover:shadow-glow hover:scale-105 transition-all duration-300 font-semibold"
-              >
-                Start Your Project
-              </button>
-
-              <button
-                onClick={() =>
-                  document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="border-white/50 text-white bg-white/10 hover:bg-white/20 px-10 py-6 text-lg transition-all duration-300 backdrop-blur-sm hover:scale-105 font-semibold"
-              >
-                View Services
-              </button>
-            </div>
-          </div>
-        </div>
-      </section> */}
+    <div className="min-h-screen text-white relative overflow-hidden">
+      {/* 3D Grid Background */}
+      <div className="absolute inset-0 -z-10 bg-black">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `
+              linear-gradient(transparent 97%, rgba(255,255,255,0.15) 100%),
+              linear-gradient(90deg, transparent 97%, rgba(255,255,255,0.15) 100%)
+            `,
+            backgroundSize: "50px 50px",
+            transform: "perspective(600px) rotateX(60deg)",
+            transformOrigin: "center top",
+          }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95 -z-10"></div>
 
       {/* Services Grid */}
-      <section className="py-24 bg-black">
+      <section className="py-24">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -151,7 +123,7 @@ const OtherServices = () => {
               Specialized services to amplify your content across all channels and platforms
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {services.map((service, index) => (
               <ServiceCard key={index} {...service} />
@@ -161,7 +133,7 @@ const OtherServices = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact-form" className="py-24 bg-black relative overflow-hidden">
+      <section id="contact-form" className="py-24 relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -171,7 +143,9 @@ const OtherServices = () => {
               Let's discuss how our specialized services can help you achieve your content goals.
             </p>
             <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-elevated">
-              <ContactForm subject={selectedService ? `Interest in ${selectedService}` : ""} />
+              <ContactForm
+                subject={selectedService ? `Interest in ${selectedService}` : ""}
+              />
             </div>
           </div>
         </div>
