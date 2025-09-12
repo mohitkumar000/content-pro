@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import ContactForm from "@/components/ContactForm";
 
 const PRICING_OPTIONS = [
-  "Starter – $500/month",
-  "Growth – $1,500/month",
-  "Scale – $3,000/month",
+  "Starter – $699/month",
+  "Growth – $1499/month",
+  "Scale – $2999/month",
   "Custom / Enterprise",
 ];
 

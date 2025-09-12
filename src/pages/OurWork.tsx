@@ -1,24 +1,113 @@
 // src/pages/OurWork.tsx
-import React from "react";
+import React, { useState } from "react";
 
-const videos = [
+interface VideoItem {
+  title: string;
+  description: string;
+  videoId: string;
+}
+
+const videos: VideoItem[] = [
   {
-    title: "🎬 Movie Review Style",
-    url: "https://www.youtube.com/embed/0-n7pX1lEpI?si=UBDlO5SQcv2trrTe",
+    title: "🍿 Movie Review Style Edits",
+    description:
+      "Deep, cinematic breakdowns with dramatic pacing and storytelling flair.",
+    videoId: "0-n7pX1lEpI",
   },
   {
-    title: "📺 Faceless Niche Edit",
-    url: "https://www.youtube.com/embed/dSD0Io3Hx60?si=XrtW_XO2KLJxBT_f",
+    title: "🌀 Faceless Viral Niche Edits",
+    description:
+      "Perfect for faceless automation channels where visuals alone carry the story.",
+    videoId: "dSD0Io3Hx60",
   },
   {
-    title: "🎭 Face Edit 1",
-    url: "https://www.youtube.com/embed/nRtLG8CnVYw?si=rdieZhg9WPnf1FZ2",
+    title: "⚡ Fast-Retention Face Edits (Style 1)",
+    description:
+      "Quick cuts, zooms, and sharp pacing—crafted for creators who want every second to count.",
+    videoId: "VkbRTO15zXc",
   },
   {
-    title: "🎭 Face Edit 2",
-    url: "https://www.youtube.com/embed/NjVc8WXtrKM?si=Kff0-46dHjpnj63g",
+    title: "🎥 Face Tutorial Edits (Style 2)",
+    description:
+      "Smooth, professional tutorial edits that highlight clarity and engagement.",
+    videoId: "NjVc8WXtrKM",
+  },
+  {
+    title: "✏️ Stickman-Style Fun Edits",
+    description:
+      "Unique stick-figure animations that make learning and storytelling fun.",
+    videoId: "pqVJRbFcpwc",
+  },
+  {
+    title: "📽️ Documentary-Style Smooth Edits",
+    description:
+      "Seamless transitions and cinematic flow like a mini-documentary.",
+    videoId: "NsamozzZtB0",
   },
 ];
+
+const channels = [
+  {
+    title: "🤖 Geekbot AI",
+    description:
+      "A faceless AI-driven channel built from scratch with viral edits and strategies.",
+    url: "https://www.youtube.com/@geekbotai",
+  },
+  {
+    title: "🧠 Thinkverse AI",
+    description:
+      "Exploring AI concepts with sleek edits and engaging scripts.",
+    url: "https://www.youtube.com/@ThinkverseAI1",
+  },
+  {
+    title: "💡 Meghna Thinks",
+    description:
+      "A creative automation channel mixing storytelling, tutorials, and experiments.",
+    url: "https://www.youtube.com/@MeghnaThinks",
+  },
+];
+
+// 🎥 Component for each video card
+const VideoCard: React.FC<VideoItem> = ({ title, description, videoId }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  return (
+    <div className="bg-white/5 rounded-3xl border border-white/10 shadow-lg overflow-hidden group hover:shadow-elevated transition-all duration-500 hover:-translate-y-2">
+      <div
+        className="relative w-full h-64 md:h-72 cursor-pointer"
+        onClick={() => setIsPlaying(true)}
+      >
+        {isPlaying ? (
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`}
+            title={title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full object-cover rounded-t-3xl"
+          />
+        ) : (
+          <>
+            <img
+              src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+              alt={title}
+              className="w-full h-full object-cover rounded-t-3xl"
+            />
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/50 transition">
+              <button className="text-white bg-red-600 rounded-full px-6 py-3 font-semibold shadow-lg hover:scale-105 transition">
+                ▶ Play
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+
+      <div className="p-6 text-center">
+        <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
+        <p className="text-white/70 text-sm">{description}</p>
+      </div>
+    </div>
+  );
+};
 
 const OurWork: React.FC = () => {
   return (
@@ -39,72 +128,47 @@ const OurWork: React.FC = () => {
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-white/80 leading-relaxed max-w-3xl mx-auto">
-            A showcase of our YouTube projects — faceless edits, reviews, and
-            full automation channels.
+            A showcase of our YouTube projects — faceless edits, tutorials,
+            cinematic reviews & full automation channels.
           </p>
         </div>
       </section>
 
-      {/* Video Grid */}
+      {/* 🎥 Video Grid */}
       <section className="relative py-16 z-10">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {videos.map((video, idx) => (
-              <div
-                key={idx}
-                className="bg-white/5 rounded-3xl border border-white/10 shadow-lg overflow-hidden group hover:shadow-elevated transition-all duration-500 hover:-translate-y-2"
-              >
-                {/* Video Thumbnail */}
-                <div className="relative w-full h-64 md:h-80 lg:h-72">
-                  <iframe
-                    src={video.url}
-                    title={video.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full object-cover rounded-t-3xl"
-                  />
-                  {/* Overlay hover effect */}
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-lg font-semibold">
-                    <span className="text-white">▶ Watch Now</span>
-                  </div>
-                </div>
-
-                {/* Video Title */}
-                <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    {video.title}
-                  </h3>
-                  <p className="text-white/70 text-sm">
-                    Professional editing, scripting & design tailored for
-                    creators.
-                  </p>
-                </div>
-              </div>
+              <VideoCard key={idx} {...video} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Full Channel Highlight */}
+      {/* 🌍 Channels Section */}
       <section className="relative py-20 z-10">
         <div className="container mx-auto px-6 text-center">
-          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-10 shadow-elevated">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              📺 Full YouTube Automation Channel
-            </h2>
-            <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
-              Here’s a complete channel I helped build — from scripts and edits
-              to thumbnails, growth, and automation.
-            </p>
-
-            <a
-              href="https://www.youtube.com/@geekbotai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-8 py-4 bg-gradient-to-r from-indigo-500 to-blue-600 hover:opacity-90 transition-all duration-300 rounded-xl font-semibold shadow-lg hover:shadow-indigo-500/40"
-            >
-              Visit Geekbot AI Channel →
-            </a>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12">
+            🌍 My Automation Channel Work
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {channels.map((ch, idx) => (
+              <div
+                key={idx}
+                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-elevated hover:-translate-y-2 transition-all"
+              >
+                <h3 className="text-2xl font-semibold mb-4">{ch.title}</h3>
+                <p className="text-white/80 text-sm mb-6">{ch.description}</p>
+                <a
+                  href={ch.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block px-6 py-3 bg-gradient-to-r from-indigo-500 to-blue-600 hover:opacity-90 transition-all duration-300 rounded-xl font-semibold shadow-md"
+                >
+                  Visit Channel →
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </section>
