@@ -278,26 +278,27 @@ const Index = () => {
 
       {/* Contact Section */}
       <section
-        id="contact-form"
-        className="py-24 relative overflow-hidden z-10"
-      >
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Let's Work Together
-            </h2>
-            <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-              Ready to take your content to the next level? Get in touch and
-              let's create something amazing together.
-            </p>
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-elevated">
-              <ContactForm
-                subject={selectedService ? `Interest in ${selectedService}` : ""}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+  id="contact-form"
+  className="py-24 relative overflow-hidden z-10"
+>
+  <div className="container mx-auto px-6 relative z-10">
+    <div className="max-w-3xl mx-auto text-center">
+      <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+        Let's Work Together
+      </h2>
+      <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+        Ready to take your content to the next level? Get in touch and
+        let's create something amazing together.
+      </p>
+
+      {/* 🚀 Directly render ContactForm, no extra frame */}
+      <ContactForm
+        subject={selectedService ? `Interest in ${selectedService}` : ""}
+      />
+    </div>
+  </div>
+</section>
+
     </div>
   );
 };

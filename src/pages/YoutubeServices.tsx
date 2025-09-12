@@ -138,14 +138,14 @@ const YoutubeServices = () => {
               linear-gradient(transparent 97%, rgba(255,255,255,0.15) 100%),
               linear-gradient(90deg, transparent 97%, rgba(255,255,255,0.15) 100%)
             `,
-            backgroundSize: "50px 50px", // grid tighter
+            backgroundSize: "50px 50px",
             transform: "perspective(600px) rotateX(60deg)",
             transformOrigin: "center top",
           }}
         />
       </div>
 
-      {/* Overlay for depth */}
+      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95 -z-10"></div>
 
       {/* Page Content */}
@@ -166,18 +166,18 @@ const YoutubeServices = () => {
               </div>
 
               <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
-                Professional YouTube automation services to grow your channel, engage
-                your audience, and drive real business results with consistent,
-                high-quality content.
+                Professional YouTube automation services to grow your channel,
+                engage your audience, and drive real business results with
+                consistent, high-quality content.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
                 <button
-                  onClick={() => {
+                  onClick={() =>
                     document
                       .getElementById("contact-form")
-                      ?.scrollIntoView({ behavior: "smooth" });
-                  }}
+                      ?.scrollIntoView({ behavior: "smooth" })
+                  }
                   className="bg-white text-black hover:bg-white/90 px-10 py-6 text-lg shadow-elevated hover:shadow-glow hover:scale-105 transition-all duration-300 font-semibold"
                 >
                   Start Your Project
@@ -206,8 +206,8 @@ const YoutubeServices = () => {
                 Complete YouTube Solutions
               </h2>
               <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
-                Everything you need to build, grow, and monetize your YouTube channel
-                with professional quality
+                Everything you need to build, grow, and monetize your YouTube
+                channel with professional quality
               </p>
             </div>
 
@@ -229,16 +229,14 @@ const YoutubeServices = () => {
                 Ready to Scale Your YouTube Channel?
               </h2>
               <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-                Let's discuss how we can help you achieve your YouTube goals with our
-                comprehensive automation services.
+                Let's discuss how we can help you achieve your YouTube goals
+                with our comprehensive automation services.
               </p>
-              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-elevated">
-                <ContactForm
-                  subject={
-                    selectedService ? `Interest in ${selectedService}` : ""
-                  }
-                />
-              </div>
+
+              {/* ✅ Directly use ContactForm (no outer border/frame) */}
+              <ContactForm
+                subject={selectedService ? `Interest in ${selectedService}` : ""}
+              />
             </div>
           </div>
         </section>

@@ -106,15 +106,16 @@ const Copywriting = () => {
 
       {/* Page Content */}
       <div className="relative z-10">
-        {/* Hero Section */}
-
         {/* Services Grid */}
         <section className="py-24">
           <div className="container mx-auto px-6">
             <div className="text-center mb-20">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">Copywriting Services</h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                Copywriting Services
+              </h2>
               <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
-                From social media to blogs, ads, and emails — we deliver copy that converts.
+                From social media to blogs, ads, and emails — we deliver copy
+                that converts.
               </p>
             </div>
 
@@ -134,11 +135,12 @@ const Copywriting = () => {
                 Ready to Transform Your Copy?
               </h2>
               <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-                Let's create copy that converts, engages, and drives the results you're looking for.
+                Let's create copy that converts, engages, and drives the results
+                you're looking for.
               </p>
-              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-elevated">
-                <ContactForm />
-              </div>
+
+              {/* ✅ Directly use ContactForm without extra wrapper */}
+              <ContactForm />
             </div>
           </div>
         </section>

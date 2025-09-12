@@ -1,3 +1,4 @@
+// src/pages/OtherServices.tsx
 import { useEffect, useState } from "react";
 import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
@@ -142,11 +143,11 @@ const OtherServices = () => {
             <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
               Let's discuss how our specialized services can help you achieve your content goals.
             </p>
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-elevated">
-              <ContactForm
-                subject={selectedService ? `Interest in ${selectedService}` : ""}
-              />
-            </div>
+
+            {/* ✅ Directly render ContactForm (no outer wrapper box) */}
+            <ContactForm
+              subject={selectedService ? `Interest in ${selectedService}` : ""}
+            />
           </div>
         </div>
       </section>
