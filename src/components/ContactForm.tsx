@@ -11,7 +11,6 @@ interface ContactFormProps {
 
 const SELECTED_PREFIX = "Selected plan: ";
 
-// ✅ Static 100 referral codes
 const REFERRAL_CODES: string[] = [
   "A1B2C3", "X9Y8Z7", "HELLO1", "CODE45", "GIFT99",
   "REF001", "REF002", "REF003", "REF004", "REF005",
@@ -65,7 +64,6 @@ const ContactForm = ({ subject }: ContactFormProps) => {
       setForm((f) => ({ ...f, message: cleaned }));
       insertedRef.current = false;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subject]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -116,7 +114,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
           email: form.email,
           phone: formattedPhone,
           message: finalMessage,
-          referral: form.referral || "—", // ✅ include referral in email
+          referral: form.referral || "—",
           subject: selectedPlan ? `Interest in ${selectedPlan}` : "General inquiry",
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
@@ -151,7 +149,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full border rounded-lg px-3 h-10"
+        className="w-full border rounded-lg px-3 h-10 bg-white text-black placeholder-gray-500"
       />
 
       <input
@@ -162,7 +160,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full border rounded-lg px-3 h-10"
+        className="w-full border rounded-lg px-3 h-10 bg-white text-black placeholder-gray-500"
       />
 
       {/* Phone Input */}
@@ -177,37 +175,43 @@ const ContactForm = ({ subject }: ContactFormProps) => {
             required: true,
           }}
           inputStyle={{
-            height: 40,
+            height: 44,
             width: "100%",
             fontSize: 15,
-            paddingLeft: 80,
-            borderRadius: 8,
-          }}
-          buttonStyle={{
-            height: 40,
-            width: 72,
+            paddingLeft: 60,
             borderRadius: 8,
             backgroundColor: "#fff",
+            color: "#000",
+          }}
+          buttonStyle={{
+            height: 44,
+            width: 60,
+            borderRadius: 8,
+            backgroundColor: "#f9f9f9",
+            borderRight: "1px solid #ccc",
           }}
           containerStyle={{
             width: "100%",
           }}
           dropdownStyle={{
             zIndex: 9999,
+            backgroundColor: "#fff",
+            color: "#000",
+            border: "1px solid #ccc",
           }}
         />
       </div>
 
-      {/* ✅ Referral Code Field */}
+      {/* Referral Code */}
       <div>
         <input
           name="referral"
           type="text"
-          placeholder="Referral Code"
+          placeholder="Referral Code (Optional)"
           value={form.referral}
           onChange={handleChange}
           disabled={isDisabled}
-          className="w-full border rounded-lg px-3 h-10"
+          className="w-full border rounded-lg px-3 h-10 bg-white text-black placeholder-gray-500"
         />
         {referralStatus === "valid" && (
           <p className="text-green-600 text-sm mt-1">✅ Referral code valid</p>
@@ -233,7 +237,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full border rounded-lg p-2 h-36"
+        className="w-full border rounded-lg p-2 h-36 bg-white text-black placeholder-gray-500"
       />
 
       <Button

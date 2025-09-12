@@ -39,11 +39,13 @@ const ServiceCard = ({ title, description, features }: ServiceCardProps) => {
             ))}
           </ul>
 
+          {/* White button with rainbow hover glow */}
           <Button
             onClick={handleContactClick}
-            className="w-full glass-button"
+            className="w-full relative bg-white text-black font-semibold rounded-lg overflow-hidden transition-all duration-300"
           >
             Get Quote
+            <span className="absolute inset-0 rounded-lg ring-2 ring-transparent hover:ring-[3px] hover:ring-offset-2 hover:ring-offset-black hover:ring-gradient-to-r hover:from-pink-500 hover:via-yellow-400 hover:via-green-400 hover:via-blue-500 hover:to-purple-600 transition-all duration-500"></span>
           </Button>
         </CardContent>
       </div>
