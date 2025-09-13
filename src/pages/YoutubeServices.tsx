@@ -1,6 +1,8 @@
+// src/pages/YoutubeServices.tsx
 import { useEffect, useState } from "react";
 import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
+import { Helmet } from "react-helmet-async";
 
 const YoutubeServices = () => {
   const [selectedService, setSelectedService] = useState("");
@@ -22,8 +24,8 @@ const YoutubeServices = () => {
         "Hook writing and storytelling",
         "SEO-optimized scripts",
         "Call-to-action integration",
-        "Multiple revision rounds"
-      ]
+        "Multiple revision rounds",
+      ],
     },
     {
       title: "Video Editing",
@@ -33,8 +35,8 @@ const YoutubeServices = () => {
         "Color grading and audio mixing",
         "Motion graphics and effects",
         "Captions and subtitles",
-        "Thumbnail creation included"
-      ]
+        "Thumbnail creation included",
+      ],
     },
     {
       title: "Thumbnail Design",
@@ -44,8 +46,8 @@ const YoutubeServices = () => {
         "Eye-catching visuals",
         "Platform optimization",
         "Brand consistency",
-        "Fast 24-hour turnaround"
-      ]
+        "Fast 24-hour turnaround",
+      ],
     },
     {
       title: "SEO Optimization",
@@ -55,8 +57,8 @@ const YoutubeServices = () => {
         "Optimized titles and descriptions",
         "Strategic tag placement",
         "Hashtag strategies",
-        "Competitor analysis"
-      ]
+        "Competitor analysis",
+      ],
     },
     {
       title: "Channel Setup & Branding",
@@ -66,8 +68,8 @@ const YoutubeServices = () => {
         "Profile optimization",
         "Playlist organization",
         "Brand guideline creation",
-        "Channel trailer scripting"
-      ]
+        "Channel trailer scripting",
+      ],
     },
     {
       title: "Content Strategy",
@@ -77,8 +79,8 @@ const YoutubeServices = () => {
         "Content calendar creation",
         "Trend analysis and forecasting",
         "Competitor research",
-        "Performance tracking setup"
-      ]
+        "Performance tracking setup",
+      ],
     },
     {
       title: "YouTube Shorts Creation",
@@ -88,8 +90,8 @@ const YoutubeServices = () => {
         "Trending audio integration",
         "Viral hook techniques",
         "Platform-specific optimization",
-        "Batch content creation"
-      ]
+        "Batch content creation",
+      ],
     },
     {
       title: "Voiceover Services",
@@ -99,8 +101,8 @@ const YoutubeServices = () => {
         "Multiple tone variations",
         "Script timing optimization",
         "Audio quality enhancement",
-        "Multiple language support"
-      ]
+        "Multiple language support",
+      ],
     },
     {
       title: "End Screens & Cards",
@@ -110,8 +112,8 @@ const YoutubeServices = () => {
         "Card placement strategy",
         "Conversion funnel design",
         "Viewer retention analysis",
-        "A/B testing setup"
-      ]
+        "A/B testing setup",
+      ],
     },
     {
       title: "Analytics & Growth Reports",
@@ -121,65 +123,192 @@ const YoutubeServices = () => {
         "Growth trend analysis",
         "Performance optimization tips",
         "Competitor benchmarking",
-        "Monthly strategy sessions"
-      ]
-    }
+        "Monthly strategy sessions",
+      ],
+    },
   ];
 
+  // ✅ JSON-LD Structured Data
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "YouTube Automation & Growth Services",
+    provider: {
+      "@type": "Organization",
+      name: "The Growth Genie",
+      url: "https://www.thegrowthgenie.com",
+    },
+    serviceType: "YouTube Services",
+    areaServed: {
+      "@type": "Place",
+      name: "Worldwide",
+    },
+    offers: {
+      "@type": "Offer",
+      url: "https://www.thegrowthgenie.com/youtube-services",
+      priceCurrency: "USD",
+      price: "699",
+      description: "Professional YouTube automation services including scripting, editing, branding, SEO, and growth strategy.",
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.thegrowthgenie.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "YouTube Services",
+        item: "https://www.thegrowthgenie.com/youtube-services",
+      },
+    ],
+  };
+
   return (
-    <div className="min-h-screen bg-background">
-      
-      {/* Hero Section */}
-      <section className="bg-gradient-hero py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            YouTube Automation Services
-          </h1>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            From scripting to analytics, we handle every aspect of your YouTube success. 
-            Focus on your vision while we handle the execution.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => {
-                document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="bg-white/20 hover:bg-white/30 text-white border border-white/30 px-8 py-3 rounded-lg transition-all"
-            >
-              Get Started Today
-            </button>
-          </div>
-        </div>
-      </section>
+    <div className="min-h-screen text-white relative overflow-hidden">
+      {/* ✅ SEO */}
+      <Helmet>
+        <title>
+          YouTube Services | The Growth Genie – Automation, Editing & Growth
+        </title>
+        <meta
+          name="description"
+          content="The Growth Genie provides professional YouTube automation, video editing, scripting, branding, SEO, and analytics to help creators and businesses grow faster."
+        />
+        <meta
+          name="keywords"
+          content="YouTube automation, faceless YouTube, video editing, thumbnail design, SEO, YouTube growth, content strategy, The Growth Genie"
+        />
+        <link
+          rel="canonical"
+          href="https://www.thegrowthgenie.com/youtube-services"
+        />
+        <script type="application/ld+json">
+          {JSON.stringify(serviceSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
 
-      {/* Services Grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Complete YouTube Solutions
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to build, grow, and monetize your YouTube channel
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-            {services.map((service, index) => (
-              <ServiceCard key={index} {...service} />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 3D Grid Background */}
+      <div className="absolute inset-0 -z-10 bg-black">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `
+              linear-gradient(transparent 97%, rgba(255,255,255,0.15) 100%),
+              linear-gradient(90deg, transparent 97%, rgba(255,255,255,0.15) 100%)
+            `,
+            backgroundSize: "50px 50px",
+            transform: "perspective(600px) rotateX(60deg)",
+            transformOrigin: "center top",
+          }}
+        />
+      </div>
 
-      {/* Contact Section */}
-      <section id="contact-form" className="py-20 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <ContactForm subject={selectedService ? `Interest in ${selectedService}` : ""} />
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95 -z-10"></div>
+
+      {/* Page Content */}
+      <div className="relative z-10">
+        {/* Hero Section */}
+        <section className="relative py-24 lg:py-32 overflow-hidden">
+          <div className="container mx-auto px-6 text-center relative z-20">
+            <div className="max-w-5xl mx-auto">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
+                YouTube That
+                <span className="block bg-white text-black px-6 py-4 rounded-2xl mt-4 border border-black/10 shadow-elevated">
+                  Scales & Converts
+                </span>
+              </h1>
+
+              <div className="text-2xl md:text-4xl font-semibold text-white/95 mb-8 leading-relaxed">
+                From Scripts to Analytics – Your Complete YouTube Growth Partner.
+              </div>
+
+              <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
+                Professional YouTube automation services to grow your channel,
+                engage your audience, and drive real business results with
+                consistent, high-quality content.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <button
+                  onClick={() =>
+                    document
+                      .getElementById("contact-form")
+                      ?.scrollIntoView({ behavior: "smooth" })
+                  }
+                  className="bg-white text-black hover:bg-white/90 px-10 py-6 text-lg shadow-elevated hover:shadow-glow hover:scale-105 transition-all duration-300 font-semibold"
+                >
+                  Start Your Project
+                </button>
+
+                <button
+                  onClick={() =>
+                    document
+                      .getElementById("services")
+                      ?.scrollIntoView({ behavior: "smooth" })
+                  }
+                  className="border-white/50 text-white bg-white/10 hover:bg-white/20 px-10 py-6 text-lg transition-all duration-300 backdrop-blur-sm hover:scale-105 font-semibold"
+                >
+                  View Services
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* Services Grid */}
+        <section id="services" className="py-24">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-20">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                Complete YouTube Solutions
+              </h2>
+              <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+                Everything you need to build, grow, and monetize your YouTube
+                channel with professional quality
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+              {services.map((service, index) => (
+                <div key={index} className="bg-grid-lines rounded-2xl p-1">
+                  <ServiceCard {...service} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact-form" className="py-24 relative overflow-hidden">
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                Ready to Scale Your YouTube Channel?
+              </h2>
+              <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+                Let's discuss how we can help you achieve your YouTube goals
+                with our comprehensive automation services.
+              </p>
+
+              <ContactForm
+                subject={selectedService ? `Interest in ${selectedService}` : ""}
+              />
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

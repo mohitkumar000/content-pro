@@ -1,78 +1,115 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Menu, X } from "lucide-react"; // 👈 icons
+import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
+import logo from "/logo.png";
 
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [logoError, setLogoError] = useState(false);
+
+  // ✅ Track if we are on the contact page
+  const [isContactPage, setIsContactPage] = useState(location.pathname === "/contact");
+
+  useEffect(() => {
+    setIsContactPage(location.pathname === "/contact");
+  }, [location.pathname]);
 
   const navigation = [
     { name: "Home", href: "/" },
     { name: "YouTube Services", href: "/youtube-services" },
     { name: "Copywriting", href: "/copywriting" },
     { name: "Other Services", href: "/other-services" },
-    { name: "Pricing", href: "/pricing" }, // ✅ added pricing link
+    { name: "Pricing", href: "/pricing" },
+    { name: "Our Work", href: "/our-work" },
+    { name: "FAQ", href: "/faq" }, // ✅ added FAQ link
   ];
 
   return (
-    <header className="bg-background/80 backdrop-blur-md border-b border-border sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+    <header className="sticky top-4 z-50 w-[95%] mx-auto rounded-2xl bg-black/40 backdrop-blur-xl border border-white/10 shadow-lg">
+      <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-gradient-primary rounded-lg"></div>
-          <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            ContentPro
-          </span>
-        </div>
+        <Link to="/" className="flex items-center group">
+          {!logoError ? (
+            <img
+              src={logo}
+              alt="thegrowthgenie logo"
+              className="h-14 w-auto object-contain transition-transform group-hover:scale-105"
+              onError={() => setLogoError(true)}
+            />
+          ) : (
+            <span className="text-2xl font-bold text-white group-hover:scale-105 transition-transform">
+              thegrowthgenie
+            </span>
+          )}
+        </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-10">
           {navigation.map((item) => (
             <Link
               key={item.name}
               to={item.href}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                location.pathname === item.href 
-                  ? "text-primary" 
-                  : "text-muted-foreground"
+              className={`relative text-lg font-medium tracking-wide transition-all duration-300 hover:scale-110 ${
+                location.pathname === item.href
+                  ? "text-white"
+                  : "text-white/70 hover:text-white"
               }`}
             >
               {item.name}
+              {location.pathname === item.href && (
+                <span className="absolute -bottom-2 left-0 right-0 h-0.5 bg-blue-500 rounded-full"></span>
+              )}
             </Link>
           ))}
         </nav>
 
+        {/* Desktop CTA Button (hidden on /contact) */}
+        {!isContactPage && (
+          <div className="hidden md:flex items-center">
+            <Button
+              onClick={() => navigate("/contact")}
+              className="rounded-full bg-blue-600 text-white hover:bg-blue-500 transition-all px-6 py-2 shadow-md hover:shadow-lg"
+            >
+              Get Started
+            </Button>
+          </div>
+        )}
+
         {/* Mobile menu button */}
-        <div className="md:hidden flex items-center space-x-2">
+        <div className="md:hidden flex items-center space-x-3">
+          {!isContactPage && (
+            <Button
+              onClick={() => navigate("/contact")}
+              className="rounded-full bg-blue-600 text-white hover:bg-blue-500 transition-all text-sm px-5 py-2"
+            >
+              Contact
+            </Button>
+          )}
           <Button
             onClick={() => setMobileOpen(!mobileOpen)}
             variant="ghost"
             size="icon"
+            className="hover:bg-white/10 text-white rounded-full"
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </Button>
-          <Button 
-            onClick={() => navigate("/contact")}
-            className="bg-gradient-primary hover:opacity-90 transition-all shadow-glow"
-          >
-            Contact Us
           </Button>
         </div>
       </div>
 
       {/* Mobile nav dropdown */}
       {mobileOpen && (
-        <div className="md:hidden bg-background border-t border-border px-4 py-4 space-y-4">
+        <div className="md:hidden bg-black/90 backdrop-blur-xl border-t border-white/10 px-6 py-6 space-y-4 rounded-b-2xl">
           {navigation.map((item) => (
             <Link
               key={item.name}
               to={item.href}
-              className={`block text-sm font-medium transition-colors hover:text-primary ${
-                location.pathname === item.href 
-                  ? "text-primary" 
-                  : "text-muted-foreground"
+              className={`block text-lg font-medium tracking-wide transition-all duration-300 hover:translate-x-2 ${
+                location.pathname === item.href
+                  ? "text-white"
+                  : "text-white/70 hover:text-white"
               }`}
               onClick={() => setMobileOpen(false)}
             >

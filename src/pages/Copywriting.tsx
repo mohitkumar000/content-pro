@@ -1,8 +1,11 @@
+// src/pages/Copywriting.tsx
 import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
 
 const Copywriting = () => {
+
   const services = [
+    
     {
       title: "X (Twitter) Ghostwriting",
       description: "Viral threads, engaging hooks, and growth-focused tweets",
@@ -83,58 +86,68 @@ const Copywriting = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header is provided globally in App.tsx */}
+    <div className="min-h-screen text-white relative overflow-hidden">
+      {/* 3D Grid Background */}
+      
+      <div className="absolute inset-0 -z-10 bg-black">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `
+              linear-gradient(transparent 97%, rgba(255,255,255,0.15) 100%),
+              linear-gradient(90deg, transparent 97%, rgba(255,255,255,0.15) 100%)
+            `,
+            backgroundSize: "50px 50px",
+            transform: "perspective(600px) rotateX(60deg)",
+            transformOrigin: "center top",
+          }}
+        />
+      </div>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-secondary py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Professional Copywriting Services
-          </h1>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Words that convert, engage, and inspire action. From social media to sales pages,
-            we craft copy that drives results.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => {
-                document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="bg-white/20 hover:bg-white/30 text-white border border-white/30 px-8 py-3 rounded-lg transition-all"
-            >
-              Get Your Copy Today
-            </button>
-          </div>
-        </div>
-      </section>
+      {/* Overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95 -z-10"></div>
 
-      {/* Services Grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Words That Work</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              From viral social media posts to high-converting sales copy
-            </p>
-          </div>
+      {/* Page Content */}
+      <div className="relative z-10">
+        {/* Services Grid */}
+        <section className="py-24">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-20">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                Copywriting Services
+              </h2>
+              <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+                From social media to blogs, ads, and emails — we deliver copy
+                that converts.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-            {services.map((service, index) => (
-              <ServiceCard key={index} {...service} />
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+              {services.map((service, index) => (
+                <ServiceCard key={index} {...service} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact Section */}
-      <section id="contact-form" className="py-20 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <ContactForm />
+        {/* Contact Section */}
+        <section id="contact-form" className="py-24 relative overflow-hidden">
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                Ready to Transform Your Copy?
+              </h2>
+              <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+                Let's create copy that converts, engages, and drives the results
+                you're looking for.
+              </p>
+
+              {/* ✅ Directly use ContactForm without extra wrapper */}
+              <ContactForm />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 };

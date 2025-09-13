@@ -1,6 +1,8 @@
+// src/pages/OtherServices.tsx
 import { useEffect, useState } from "react";
 import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
+import { Helmet } from "react-helmet-async";
 
 const OtherServices = () => {
   const [selectedService, setSelectedService] = useState("");
@@ -22,8 +24,8 @@ const OtherServices = () => {
         "Content calendar development",
         "Audience analysis and targeting",
         "Hashtag research and optimization",
-        "Cross-platform integration"
-      ]
+        "Cross-platform integration",
+      ],
     },
     {
       title: "Content Repurposing",
@@ -33,8 +35,8 @@ const OtherServices = () => {
         "Platform optimization",
         "SEO adaptation",
         "Visual asset creation",
-        "Content series development"
-      ]
+        "Content series development",
+      ],
     },
     {
       title: "Podcast Show Notes & Summaries",
@@ -44,8 +46,8 @@ const OtherServices = () => {
         "SEO-optimized show notes",
         "Episode summaries",
         "Timestamp creation",
-        "Social media snippets"
-      ]
+        "Social media snippets",
+      ],
     },
     {
       title: "Research & Fact-Checking",
@@ -55,8 +57,8 @@ const OtherServices = () => {
         "Industry expert consultation",
         "Statistical analysis",
         "Compliance checking",
-        "Citation and reference formatting"
-      ]
+        "Citation and reference formatting",
+      ],
     },
     {
       title: "Ghostwriting (Books/Guides)",
@@ -66,8 +68,8 @@ const OtherServices = () => {
         "Lead magnet creation",
         "Course material development",
         "White paper writing",
-        "Industry report creation"
-      ]
+        "Industry report creation",
+      ],
     },
     {
       title: "Script-to-Blog Conversion",
@@ -77,8 +79,8 @@ const OtherServices = () => {
         "SEO optimization",
         "Article structuring",
         "Visual content suggestions",
-        "Call-to-action integration"
-      ]
+        "Call-to-action integration",
+      ],
     },
     {
       title: "Content Calendar Management",
@@ -88,49 +90,113 @@ const OtherServices = () => {
         "Content theme planning",
         "Seasonal content preparation",
         "Performance tracking setup",
-        "Team collaboration tools"
-      ]
-    }
+        "Team collaboration tools",
+      ],
+    },
   ];
 
+  // ✅ JSON-LD Structured Data
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Content Strategy & Marketing Services",
+    provider: {
+      "@type": "Organization",
+      name: "The Growth Genie",
+      url: "https://www.thegrowthgenie.com",
+    },
+    serviceType: "Content Services",
+    areaServed: {
+      "@type": "Place",
+      name: "Worldwide",
+    },
+    offers: {
+      "@type": "Offer",
+      url: "https://www.thegrowthgenie.com/other-services",
+      priceCurrency: "USD",
+      price: "699",
+      description:
+        "Professional content services including social media strategy, repurposing, podcast notes, ghostwriting, and content calendar management.",
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.thegrowthgenie.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Other Services",
+        item: "https://www.thegrowthgenie.com/other-services",
+      },
+    ],
+  };
+
   return (
-    <div className="min-h-screen bg-background">
-     
-      {/* Hero Section */}
-      <section className="bg-gradient-primary py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Additional Content Services
-          </h1>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Specialized content solutions to complete your digital marketing ecosystem.
-            From research to repurposing, we've got you covered.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => {
-                document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="bg-white/20 hover:bg-white/30 text-white border border-white/30 px-8 py-3 rounded-lg transition-all"
-            >
-              Explore Services
-            </button>
-          </div>
-        </div>
-      </section>
+    <div className="min-h-screen text-white relative overflow-hidden">
+      {/* ✅ SEO */}
+      <Helmet>
+        <title>
+          Other Services | The Growth Genie – Content Strategy, Repurposing &
+          Ghostwriting
+        </title>
+        <meta
+          name="description"
+          content="The Growth Genie offers specialized content services including social media strategy, content repurposing, podcast notes, ghostwriting, and calendar management to boost your brand."
+        />
+        <meta
+          name="keywords"
+          content="content repurposing, social media strategy, ghostwriting, podcast notes, research, content calendar, The Growth Genie"
+        />
+        <link
+          rel="canonical"
+          href="https://www.thegrowthgenie.com/other-services"
+        />
+        <script type="application/ld+json">
+          {JSON.stringify(serviceSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
+
+      {/* 3D Grid Background */}
+      <div className="absolute inset-0 -z-10 bg-black">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `
+              linear-gradient(transparent 97%, rgba(255,255,255,0.15) 100%),
+              linear-gradient(90deg, transparent 97%, rgba(255,255,255,0.15) 100%)
+            `,
+            backgroundSize: "50px 50px",
+            transform: "perspective(600px) rotateX(60deg)",
+            transformOrigin: "center top",
+          }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95 -z-10"></div>
 
       {/* Services Grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+      <section className="py-24">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
               Comprehensive Content Solutions
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Specialized services to amplify your content across all channels
+              and platforms
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {services.map((service, index) => (
               <ServiceCard key={index} {...service} />
@@ -140,10 +206,20 @@ const OtherServices = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact-form" className="py-20 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <ContactForm subject={selectedService ? `Interest in ${selectedService}` : ""} />
+      <section id="contact-form" className="py-24 relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Ready to Expand Your Content Strategy?
+            </h2>
+            <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+              Let's discuss how our specialized services can help you achieve
+              your content goals.
+            </p>
+
+            <ContactForm
+              subject={selectedService ? `Interest in ${selectedService}` : ""}
+            />
           </div>
         </div>
       </section>
