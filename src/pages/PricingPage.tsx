@@ -67,7 +67,7 @@ const PricingCard = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleGetStarted = () => {
+  const handleContactUs = () => {
     localStorage.setItem("selectedService", title);
     navigate("/contact");
   };
@@ -97,13 +97,24 @@ const PricingCard = ({
         />
       ))}
 
-      <div className="mt-6">
+      {/* Buttons */}
+      <div className="mt-6 flex flex-col space-y-3">
         <Button
-          onClick={handleGetStarted}
+          onClick={handleContactUs}
           className="w-full bg-white text-black hover:bg-white/90 px-6 py-4 text-lg hover:scale-105 transition-all duration-300 font-semibold"
         >
-          Get Started
+          Contact Us
         </Button>
+        <a
+          href="https://calendly.com/team-thegrowthgenie/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full"
+        >
+          <Button className="w-full bg-gradient-to-r from-indigo-500 to-blue-600 text-white hover:opacity-90 px-6 py-4 text-lg hover:scale-105 transition-all duration-300 font-semibold">
+            Book a Meeting
+          </Button>
+        </a>
       </div>
     </div>
   );

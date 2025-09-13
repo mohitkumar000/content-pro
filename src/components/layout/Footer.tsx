@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="https://calendly.com/contentpro918/30min" 
+                href="https://calendly.com/team-thegrowthgenie/30min" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="bg-white text-black hover:bg-white/90 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105"
@@ -56,6 +56,16 @@ const Footer: React.FC = () => {
               <li>
                 <Link to="/pricing" className="text-white/70 hover:text-white transition-colors hover:translate-x-1 inline-block">
                   Pricing
+                </Link>
+              </li>
+              <li>
+                <Link to="/our-work" className="text-white/70 hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  Our Work
+                </Link>
+              </li>
+              <li>
+                <Link to="/faq" className="text-white/70 hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  FAQ
                 </Link>
               </li>
             </ul>
