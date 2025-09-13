@@ -106,7 +106,13 @@ const Index = () => {
   const fadeInUp: Variants = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { type: "spring", duration: 0.8 } } };
 
   return (
-    <div className="relative min-h-screen bg-[#010101] text-white overflow-x-hidden">
+    <div className="relative min-h-screen text-white overflow-x-hidden">
+      {/* 🔵 Background restored */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[length:40px_40px]"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-black to-purple-900"></div>
+      </div>
+
       <Helmet>
         <title>The Growth Genie | YouTube Automation, Copywriting & Content Services</title>
         <meta name="description" content="The Growth Genie helps creators and businesses scale with YouTube automation, faceless video editing, copywriting, and growth strategies. Trusted by 100+ creators worldwide." />
@@ -115,28 +121,49 @@ const Index = () => {
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
-      {/* ✅ HERO SECTION (unchanged) */}
-      <section className="relative py-28 lg:py-40 overflow-hidden z-10">
-        <div className="container mx-auto px-6 text-center">
-          <div className="max-w-4xl mx-auto">
-            <div className="inline-block px-4 py-1.5 mb-6 rounded-full border border-white/20 bg-white/5 text-sm text-white/80">
-              100% Premium Content Services
-            </div>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
-              Unlimited Content, <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Single Monthly Charge</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-white/80 leading-relaxed mb-10">
-              TheGrowthGenie delivers professional content & YouTube services within budget — ensuring accessibility for everyone.
-            </p>
-            <div className="flex justify-center mb-6 gap-4">
-              <Button onClick={() => navigate("/pricing")} className="px-10 py-5 text-lg bg-gradient-to-r from-indigo-500 to-blue-600 hover:opacity-90 shadow-lg hover:shadow-indigo-500/40 transition-all duration-300">Our Pricing</Button>
-              <Button onClick={() => navigate("/our-work")} className="px-10 py-5 text-lg bg-gradient-to-r from-purple-500 to-pink-600 hover:opacity-90 shadow-lg hover:shadow-pink-500/40 transition-all duration-300">Our Work</Button>
-            </div>
-            <p className="text-sm text-white/60">Pause or cancel anytime. No hidden commitments.</p>
-          </div>
-        </div>
-      </section>
+      {/* ✅ HERO SECTION */}
+<section className="relative py-28 lg:py-40 overflow-hidden z-10 bg-gradient-to-br from-indigo-900 via-black to-purple-900">
+  {/* ⭐ Overlay stars */}
+  <div className="absolute inset-0">
+    <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[length:40px_40px] animate-twinkle"></div>
+  </div>
+
+  <div className="container mx-auto px-6 text-center relative z-10">
+    <div className="max-w-4xl mx-auto">
+      <div className="inline-block px-4 py-1.5 mb-6 rounded-full border border-white/20 bg-white/5 text-sm text-white/80">
+        100% Premium Content Services
+      </div>
+      <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+        Unlimited Content, <br />
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
+          Single Monthly Charge
+        </span>
+      </h1>
+      <p className="text-xl md:text-2xl text-white/80 leading-relaxed mb-10">
+        TheGrowthGenie delivers professional content & YouTube services within
+        budget — ensuring accessibility for everyone.
+      </p>
+      <div className="flex justify-center mb-6 gap-4">
+        <Button
+          onClick={() => navigate("/pricing")}
+          className="px-10 py-5 text-lg bg-gradient-to-r from-indigo-500 to-blue-600 hover:opacity-90 shadow-lg hover:shadow-indigo-500/40 transition-all duration-300"
+        >
+          Our Pricing
+        </Button>
+        <Button
+          onClick={() => navigate("/our-work")}
+          className="px-10 py-5 text-lg bg-gradient-to-r from-purple-500 to-pink-600 hover:opacity-90 shadow-lg hover:shadow-pink-500/40 transition-all duration-300"
+        >
+          Our Work
+        </Button>
+      </div>
+      <p className="text-sm text-white/60">
+        Pause or cancel anytime. No hidden commitments.
+      </p>
+    </div>
+  </div>
+</section>
+
 
       {/* 🚀 Floating Marquee */}
       <div className="relative overflow-hidden py-6 border-y border-white/10 bg-black/40 z-10">
@@ -149,7 +176,7 @@ const Index = () => {
       </div>
 
       {/* 🚀 Counters */}
-      <section className="py-24 relative z-10 bg-[#010101]">
+      <section className="py-24 relative z-10">
         <div className="container mx-auto px-6">
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} variants={containerVariants} className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <motion.div variants={fadeInUp} className="bg-white/5 rounded-2xl p-10 border border-white/10 shadow-lg">
@@ -189,7 +216,7 @@ const Index = () => {
       </section>
 
       {/* 🎯 Why Choose Us Funky */}
-      <section className="py-24 relative z-10 bg-[#0a0a0a]">
+      <section className="py-24 relative z-10 bg-[#0a0a0a]/80">
         <div className="container mx-auto px-6">
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.5 }} variants={containerVariants} className="text-center mb-20">
             <AnimatedText text="Why Choose The Growth Genie?" el="h2" className="text-4xl md:text-5xl font-bold mb-6" />
