@@ -125,23 +125,25 @@ const OurWork: React.FC = () => {
 
 
       {/* 🚀 REDESIGNED: Header with Animation */}
-      <section className="relative py-28 lg:py-36 z-10 text-center">
-        <div className="container mx-auto px-6">
-          <AnimatedText 
-            text="A Showcase of Our Work" 
-            el="h1" 
-            className="text-5xl md:text-7xl font-bold tracking-tight mb-6"
-          />
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="text-xl md:text-2xl text-white/80 leading-relaxed max-w-3xl mx-auto"
-          >
-            Faceless edits, tutorials, cinematic reviews & full automation channels—see what we can do for you.
-          </motion.p>
-        </div>
-      </section>
+  {/* 🚀 REDESIGNED: Header with Animation */}
+<section className="relative py-28 lg:py-36 z-10 text-center">
+  <div className="container mx-auto px-6">
+    <AnimatedText 
+      text="A Showcase of Our Work" 
+      el="h1" 
+      className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 whitespace-nowrap"
+    />
+    <motion.p 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.8 }}
+      className="text-base sm:text-lg md:text-2xl text-white/80 leading-relaxed max-w-3xl mx-auto"
+    >
+      Faceless edits, tutorials, cinematic reviews & full automation channels — see what we can do for you.
+    </motion.p>
+  </div>
+</section>
+
 
       {/* 🎥 REDESIGNED: Masonry Video Grid with Animation */}
       <section className="relative py-16 z-10">
