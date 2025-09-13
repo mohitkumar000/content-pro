@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Helmet } from "react-helmet-async";
 
 /* Small feature row */
 const Feature = ({ children }: { children: React.ReactNode }) => (
@@ -121,8 +122,81 @@ const PricingCard = ({
 };
 
 const PricingPage: React.FC = () => {
+  // ✅ Structured Data (Schema)
+  const pricingSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "YouTube Content Services",
+    brand: {
+      "@type": "Organization",
+      name: "The Growth Genie",
+      url: "https://www.thegrowthgenie.com",
+    },
+    offers: [
+      {
+        "@type": "Offer",
+        name: "Starter Plan",
+        price: "699",
+        priceCurrency: "USD",
+        url: "https://www.thegrowthgenie.com/pricing",
+      },
+      {
+        "@type": "Offer",
+        name: "Growth Plan",
+        price: "1499",
+        priceCurrency: "USD",
+        url: "https://www.thegrowthgenie.com/pricing",
+      },
+      {
+        "@type": "Offer",
+        name: "Scale Plan",
+        price: "2999",
+        priceCurrency: "USD",
+        url: "https://www.thegrowthgenie.com/pricing",
+      },
+    ],
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.thegrowthgenie.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Pricing",
+        item: "https://www.thegrowthgenie.com/pricing",
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
+      {/* ✅ SEO */}
+      <Helmet>
+        <title>
+          Pricing Plans | The Growth Genie – YouTube Automation & Content
+          Services
+        </title>
+        <meta
+          name="description"
+          content="Choose from our Starter, Growth, and Scale plans for YouTube automation, content creation, and channel management. Transparent pricing to help you grow."
+        />
+        <link rel="canonical" href="https://www.thegrowthgenie.com/pricing" />
+        <script type="application/ld+json">
+          {JSON.stringify(pricingSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
+
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-black">
         <div

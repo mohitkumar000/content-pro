@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
+import { Helmet } from "react-helmet-async";
 
 const OtherServices = () => {
   const [selectedService, setSelectedService] = useState("");
@@ -94,8 +95,78 @@ const OtherServices = () => {
     },
   ];
 
+  // ✅ JSON-LD Structured Data
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Content Strategy & Marketing Services",
+    provider: {
+      "@type": "Organization",
+      name: "The Growth Genie",
+      url: "https://www.thegrowthgenie.com",
+    },
+    serviceType: "Content Services",
+    areaServed: {
+      "@type": "Place",
+      name: "Worldwide",
+    },
+    offers: {
+      "@type": "Offer",
+      url: "https://www.thegrowthgenie.com/other-services",
+      priceCurrency: "USD",
+      price: "699",
+      description:
+        "Professional content services including social media strategy, repurposing, podcast notes, ghostwriting, and content calendar management.",
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.thegrowthgenie.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Other Services",
+        item: "https://www.thegrowthgenie.com/other-services",
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
+      {/* ✅ SEO */}
+      <Helmet>
+        <title>
+          Other Services | The Growth Genie – Content Strategy, Repurposing &
+          Ghostwriting
+        </title>
+        <meta
+          name="description"
+          content="The Growth Genie offers specialized content services including social media strategy, content repurposing, podcast notes, ghostwriting, and calendar management to boost your brand."
+        />
+        <meta
+          name="keywords"
+          content="content repurposing, social media strategy, ghostwriting, podcast notes, research, content calendar, The Growth Genie"
+        />
+        <link
+          rel="canonical"
+          href="https://www.thegrowthgenie.com/other-services"
+        />
+        <script type="application/ld+json">
+          {JSON.stringify(serviceSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
+
       {/* 3D Grid Background */}
       <div className="absolute inset-0 -z-10 bg-black">
         <div
@@ -121,7 +192,8 @@ const OtherServices = () => {
               Comprehensive Content Solutions
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Specialized services to amplify your content across all channels and platforms
+              Specialized services to amplify your content across all channels
+              and platforms
             </p>
           </div>
 
@@ -141,10 +213,10 @@ const OtherServices = () => {
               Ready to Expand Your Content Strategy?
             </h2>
             <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-              Let's discuss how our specialized services can help you achieve your content goals.
+              Let's discuss how our specialized services can help you achieve
+              your content goals.
             </p>
 
-            {/* ✅ Directly render ContactForm (no outer wrapper box) */}
             <ContactForm
               subject={selectedService ? `Interest in ${selectedService}` : ""}
             />

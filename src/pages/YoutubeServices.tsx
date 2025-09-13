@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
+import { Helmet } from "react-helmet-async";
 
 const YoutubeServices = () => {
   const [selectedService, setSelectedService] = useState("");
@@ -127,8 +128,76 @@ const YoutubeServices = () => {
     },
   ];
 
+  // ✅ JSON-LD Structured Data
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "YouTube Automation & Growth Services",
+    provider: {
+      "@type": "Organization",
+      name: "The Growth Genie",
+      url: "https://www.thegrowthgenie.com",
+    },
+    serviceType: "YouTube Services",
+    areaServed: {
+      "@type": "Place",
+      name: "Worldwide",
+    },
+    offers: {
+      "@type": "Offer",
+      url: "https://www.thegrowthgenie.com/youtube-services",
+      priceCurrency: "USD",
+      price: "699",
+      description: "Professional YouTube automation services including scripting, editing, branding, SEO, and growth strategy.",
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.thegrowthgenie.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "YouTube Services",
+        item: "https://www.thegrowthgenie.com/youtube-services",
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
+      {/* ✅ SEO */}
+      <Helmet>
+        <title>
+          YouTube Services | The Growth Genie – Automation, Editing & Growth
+        </title>
+        <meta
+          name="description"
+          content="The Growth Genie provides professional YouTube automation, video editing, scripting, branding, SEO, and analytics to help creators and businesses grow faster."
+        />
+        <meta
+          name="keywords"
+          content="YouTube automation, faceless YouTube, video editing, thumbnail design, SEO, YouTube growth, content strategy, The Growth Genie"
+        />
+        <link
+          rel="canonical"
+          href="https://www.thegrowthgenie.com/youtube-services"
+        />
+        <script type="application/ld+json">
+          {JSON.stringify(serviceSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
+
       {/* 3D Grid Background */}
       <div className="absolute inset-0 -z-10 bg-black">
         <div
@@ -233,7 +302,6 @@ const YoutubeServices = () => {
                 with our comprehensive automation services.
               </p>
 
-              {/* ✅ Directly use ContactForm (no outer border/frame) */}
               <ContactForm
                 subject={selectedService ? `Interest in ${selectedService}` : ""}
               />
