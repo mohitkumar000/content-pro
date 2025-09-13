@@ -1,5 +1,6 @@
 // src/pages/OurWork.tsx
 import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 interface VideoItem {
   title: string;
@@ -81,6 +82,7 @@ const VideoCard: React.FC<VideoItem> = ({ title, description, videoId }) => {
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`}
             title={title}
+            aria-label={`YouTube video: ${title}`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="w-full h-full object-cover rounded-t-3xl"
@@ -89,11 +91,15 @@ const VideoCard: React.FC<VideoItem> = ({ title, description, videoId }) => {
           <>
             <img
               src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
-              alt={title}
+              alt={`Thumbnail of ${title}`}
               className="w-full h-full object-cover rounded-t-3xl"
+              loading="lazy"
             />
             <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/50 transition">
-              <button className="text-white bg-red-600 rounded-full px-6 py-3 font-semibold shadow-lg hover:scale-105 transition">
+              <button
+                aria-label={`Play video: ${title}`}
+                className="text-white bg-red-600 rounded-full px-6 py-3 font-semibold shadow-lg hover:scale-105 transition"
+              >
                 ▶ Play
               </button>
             </div>
@@ -110,8 +116,70 @@ const VideoCard: React.FC<VideoItem> = ({ title, description, videoId }) => {
 };
 
 const OurWork: React.FC = () => {
+  // ✅ Schema.org JSON-LD
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: "Our Work - The Growth Genie",
+    description:
+      "A showcase of YouTube projects and automation channels by The Growth Genie, featuring edits, faceless content, tutorials, and storytelling styles.",
+    creator: {
+      "@type": "Organization",
+      name: "The Growth Genie",
+      url: "https://www.thegrowthgenie.com",
+    },
+    exampleOfWork: videos.map((v) => ({
+      "@type": "VideoObject",
+      name: v.title,
+      description: v.description,
+      thumbnailUrl: `https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg`,
+      uploadDate: "2025-01-01", // adjust if you have real dates
+      contentUrl: `https://www.youtube.com/watch?v=${v.videoId}`,
+      embedUrl: `https://www.youtube.com/embed/${v.videoId}`,
+    })),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.thegrowthgenie.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Our Work",
+        item: "https://www.thegrowthgenie.com/our-work",
+      },
+    ],
+  };
+
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
+      {/* ✅ SEO */}
+      <Helmet>
+        <title>
+          Our Work | The Growth Genie – YouTube Automation, Edits & Channels
+        </title>
+        <meta
+          name="description"
+          content="Explore The Growth Genie's portfolio of YouTube projects – cinematic edits, faceless automation, tutorials, storytelling content, and complete channel builds."
+        />
+        <meta
+          name="keywords"
+          content="YouTube automation work, video editing portfolio, faceless YouTube channels, cinematic edits, The Growth Genie projects"
+        />
+        <link rel="canonical" href="https://www.thegrowthgenie.com/our-work" />
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
+
       {/* 🌌 Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-starfield"></div>

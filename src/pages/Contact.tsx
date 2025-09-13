@@ -1,6 +1,7 @@
 // src/pages/Contact.tsx
 import { useEffect, useState } from "react";
 import ContactForm from "@/components/ContactForm";
+import { Helmet } from "react-helmet-async";  // ✅ Add Helmet
 
 const PRICING_OPTIONS = [
   "Starter – $699/month",
@@ -22,6 +23,31 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* ✅ Organization Schema */}
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "The Growth Genie",
+            "url": "https://www.thegrowthgenie.com/",
+            "logo": "https://www.thegrowthgenie.com/assets/logo.png",
+            "sameAs": [
+              "https://x.com/Thegrowthgenie9",
+              "https://www.youtube.com/@geekbotai",
+              "https://www.youtube.com/@ThinkverseAI1",
+              "https://www.youtube.com/@MeghnaThinks"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "email": "team@thegrowthgenie.com",
+              "contactType": "customer support",
+              "availableLanguage": ["English"]
+            }
+          })}
+        </script>
+      </Helmet>
+
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-black">
         <canvas id="starfield" className="w-full h-full"></canvas>

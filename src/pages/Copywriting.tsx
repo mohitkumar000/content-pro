@@ -3,7 +3,9 @@ import ServiceCard from "@/components/ServiceCard";
 import ContactForm from "@/components/ContactForm";
 
 const Copywriting = () => {
+
   const services = [
+    
     {
       title: "X (Twitter) Ghostwriting",
       description: "Viral threads, engaging hooks, and growth-focused tweets",
@@ -86,6 +88,7 @@ const Copywriting = () => {
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
       {/* 3D Grid Background */}
+      
       <div className="absolute inset-0 -z-10 bg-black">
         <div
           className="w-full h-full"
