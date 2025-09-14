@@ -1,3 +1,4 @@
+// src/components/ContactForm.tsx
 import { useEffect, useRef, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -50,25 +51,24 @@ const ContactForm = ({ subject }: ContactFormProps) => {
 
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [referralStatus, setReferralStatus] = useState<"idle" | "valid" | "invalid">("idle");
-  const insertedRef = useRef(false);
 
   // ✅ Handle subject prefill (from Pricing redirect)
   useEffect(() => {
     if (subject) {
       const planText = subject.replace(/^Interest in\s*/i, "");
       setSelectedPlan(planText);
-
-      // Insert into message on load
       setForm((f) => ({
         ...f,
-        message: `${SELECTED_PREFIX}${planText}\n\n${f.message.replace(
-          new RegExp(`^${SELECTED_PREFIX}.*\\n\\n`),
-          ""
-        )}`,
+        message: `${SELECTED_PREFIX}${planText}\n\n`,
       }));
-      insertedRef.current = true;
     }
   }, [subject]);
+
+  // ✅ Always inject selectedPlan freshly
+  const injectPlanIntoMessage = (rawMessage: string, plan: string) => {
+    const cleaned = rawMessage.replace(new RegExp(`^${SELECTED_PREFIX}.*\\n\\n`), "");
+    return plan ? `${SELECTED_PREFIX}${plan}\n\n${cleaned}` : cleaned;
+  };
 
   // ✅ Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -76,22 +76,13 @@ const ContactForm = ({ subject }: ContactFormProps) => {
     setForm((f) => ({ ...f, [name]: value }));
 
     if (name === "referral") {
-      if (!value) {
-        setReferralStatus("idle");
-      } else if (REFERRAL_CODES.includes(value.trim().toUpperCase())) {
-        setReferralStatus("valid");
-      } else {
-        setReferralStatus("invalid");
-      }
+      if (!value) setReferralStatus("idle");
+      else if (REFERRAL_CODES.includes(value.trim().toUpperCase())) setReferralStatus("valid");
+      else setReferralStatus("invalid");
     }
   };
 
-  // ✅ Always inject selectedPlan into message before submit
-  const buildFinalMessage = (rawMessage: string) => {
-    const cleanedMsg = rawMessage.replace(new RegExp(`^${SELECTED_PREFIX}.*\\n\\n`), "");
-    return selectedPlan ? `${SELECTED_PREFIX}${selectedPlan}\n\n${cleanedMsg}` : cleanedMsg;
-  };
-
+  // ✅ Submit handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (status === "sending") return;
@@ -100,14 +91,13 @@ const ContactForm = ({ subject }: ContactFormProps) => {
       alert("Please fill all required fields.");
       return;
     }
-
     if (form.referral && referralStatus !== "valid") {
       alert("Referral code is invalid.");
       return;
     }
 
     const formattedPhone = phone.startsWith("+") ? phone : `+${phone}`;
-    const finalMessage = buildFinalMessage(form.message);
+    const finalMessage = injectPlanIntoMessage(form.message, selectedPlan);
 
     try {
       setStatus("sending");
@@ -138,7 +128,6 @@ const ContactForm = ({ subject }: ContactFormProps) => {
       setSelectedPlan("");
       setSelectedService("");
       setReferralStatus("idle");
-      insertedRef.current = false;
 
       setTimeout(() => setStatus("idle"), 1500);
     } catch (err) {
@@ -148,13 +137,12 @@ const ContactForm = ({ subject }: ContactFormProps) => {
     }
   };
 
-  const isDisabled = status === "sending" || status === "sent";
+  const isDisabled = status === "sending"; // ✅ Lock during sending
 
   return (
     <form
       onSubmit={handleSubmit}
       className="space-y-5 w-full min-w-0 bg-white/5 backdrop-blur-xl rounded-none md:rounded-2xl shadow-lg p-6 sm:p-8 md:p-10 border border-transparent md:border-white/20"
-      aria-live="polite"
     >
       {/* ✅ Service dropdown */}
       <div>
@@ -164,6 +152,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
           onChange={(e) => {
             setSelectedService(e.target.value);
             setSelectedPlan("");
+            setForm((f) => ({ ...f, message: "" }));
           }}
           disabled={isDisabled}
           className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black text-base"
@@ -188,7 +177,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
               setSelectedPlan(newPlan);
               setForm((f) => ({
                 ...f,
-                message: buildFinalMessage(f.message),
+                message: injectPlanIntoMessage(f.message, newPlan),
               }));
             }}
             disabled={isDisabled}
@@ -204,6 +193,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         </div>
       )}
 
+      {/* Inputs */}
       <input
         name="name"
         type="text"
@@ -212,9 +202,8 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 text-base"
+        className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black"
       />
-
       <input
         name="email"
         type="email"
@@ -223,10 +212,8 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 text-base"
+        className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black"
       />
-
-      {/* Phone Input */}
       <PhoneInput
         country={"us"}
         value={phone}
@@ -251,32 +238,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
           borderRight: "1px solid #ccc",
         }}
         containerStyle={{ width: "100%" }}
-        dropdownStyle={{
-          zIndex: 9999,
-          backgroundColor: "#fff",
-          color: "#000",
-          border: "1px solid #ccc",
-        }}
       />
-
-      {/* Referral Code */}
-      <div>
-        <input
-          name="referral"
-          type="text"
-          placeholder="Referral Code (Optional)"
-          value={form.referral}
-          onChange={handleChange}
-          disabled={isDisabled}
-          className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 text-base"
-        />
-        {referralStatus === "valid" && (
-          <p className="text-green-600 text-sm mt-1">✅ Referral code valid</p>
-        )}
-        {referralStatus === "invalid" && (
-          <p className="text-red-600 text-sm mt-1">❌ Referral code invalid</p>
-        )}
-      </div>
 
       <textarea
         name="message"
@@ -285,13 +247,13 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full h-40 px-4 rounded-lg border border-gray-300 bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 text-base"
+        className="w-full h-40 px-4 rounded-lg border border-gray-300 bg-white text-black"
       />
 
       <Button
         type="submit"
         disabled={isDisabled}
-        className="w-full h-14 text-lg bg-gradient-to-r from-indigo-500 to-blue-600 text-white rounded-lg shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300 font-semibold"
+        className="w-full h-14 text-lg bg-gradient-to-r from-indigo-500 to-blue-600 text-white rounded-lg shadow-md"
       >
         {status === "sending" ? "Sending..." : status === "sent" ? "✅ Sent" : "Send Message"}
       </Button>
