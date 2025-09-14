@@ -1,3 +1,4 @@
+// src/components/layout/Header.tsx
 import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -11,7 +12,9 @@ const Header = () => {
   const [logoError, setLogoError] = useState(false);
 
   // ✅ Track if we are on the contact page
-  const [isContactPage, setIsContactPage] = useState(location.pathname === "/contact");
+  const [isContactPage, setIsContactPage] = useState(
+    location.pathname === "/contact"
+  );
 
   useEffect(() => {
     setIsContactPage(location.pathname === "/contact");
@@ -20,47 +23,47 @@ const Header = () => {
   const navigation = [
     { name: "Home", href: "/" },
     { name: "YouTube Services", href: "/youtube-services" },
-    { name: "Copywriting", href: "/copywriting" },
-    { name: "Other Services", href: "/other-services" },
+    { name: "Influencer Campaigns", href: "/Influencer-Campaigns" },
+    { name: "Complete Tech", href: "/Complete-Tech" },
     { name: "Pricing", href: "/pricing" },
     { name: "Our Work", href: "/our-work" },
-    { name: "FAQ", href: "/faq" }, // ✅ added FAQ link
+    { name: "FAQ", href: "/faq" },
   ];
 
   return (
-    <header className="sticky top-4 z-50 w-[95%] mx-auto rounded-2xl bg-black/40 backdrop-blur-xl border border-white/10 shadow-lg">
-      <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+    <header className="sticky top-3 z-50 w-[94%] mx-auto rounded-2xl bg-black/30 backdrop-blur-xl border border-white/10 shadow-md">
+      <div className="container mx-auto px-5 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center group">
           {!logoError ? (
             <img
               src={logo}
               alt="thegrowthgenie logo"
-              className="h-14 w-auto object-contain transition-transform group-hover:scale-105"
+              className="h-12 w-auto object-contain transition-transform group-hover:scale-105"
               onError={() => setLogoError(true)}
             />
           ) : (
-            <span className="text-2xl font-bold text-white group-hover:scale-105 transition-transform">
+            <span className="text-xl font-bold text-white group-hover:scale-105 transition-transform">
               thegrowthgenie
             </span>
           )}
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center space-x-10">
+        <nav className="hidden md:flex items-center space-x-8">
           {navigation.map((item) => (
             <Link
               key={item.name}
               to={item.href}
-              className={`relative text-lg font-medium tracking-wide transition-all duration-300 hover:scale-110 ${
+              className={`relative text-base font-medium transition-all duration-300 hover:text-white ${
                 location.pathname === item.href
                   ? "text-white"
-                  : "text-white/70 hover:text-white"
+                  : "text-white/60 hover:text-white"
               }`}
             >
               {item.name}
               {location.pathname === item.href && (
-                <span className="absolute -bottom-2 left-0 right-0 h-0.5 bg-blue-500 rounded-full"></span>
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></span>
               )}
             </Link>
           ))}
@@ -71,7 +74,7 @@ const Header = () => {
           <div className="hidden md:flex items-center">
             <Button
               onClick={() => navigate("/contact")}
-              className="rounded-full bg-blue-600 text-white hover:bg-blue-500 transition-all px-6 py-2 shadow-md hover:shadow-lg"
+              className="rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md hover:shadow-lg hover:scale-105 transition-all px-5 py-2 text-sm font-semibold"
             >
               Get Started
             </Button>
@@ -79,11 +82,11 @@ const Header = () => {
         )}
 
         {/* Mobile menu button */}
-        <div className="md:hidden flex items-center space-x-3">
+        <div className="md:hidden flex items-center space-x-2">
           {!isContactPage && (
             <Button
               onClick={() => navigate("/contact")}
-              className="rounded-full bg-blue-600 text-white hover:bg-blue-500 transition-all text-sm px-5 py-2"
+              className="rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs px-4 py-1.5 shadow hover:scale-105 transition-all"
             >
               Contact
             </Button>
@@ -101,15 +104,15 @@ const Header = () => {
 
       {/* Mobile nav dropdown */}
       {mobileOpen && (
-        <div className="md:hidden bg-black/90 backdrop-blur-xl border-t border-white/10 px-6 py-6 space-y-4 rounded-b-2xl">
+        <div className="md:hidden bg-black/95 backdrop-blur-xl border-t border-white/10 px-6 py-5 space-y-4 rounded-b-2xl">
           {navigation.map((item) => (
             <Link
               key={item.name}
               to={item.href}
-              className={`block text-lg font-medium tracking-wide transition-all duration-300 hover:translate-x-2 ${
+              className={`block text-lg font-medium transition-all duration-300 hover:translate-x-2 ${
                 location.pathname === item.href
                   ? "text-white"
-                  : "text-white/70 hover:text-white"
+                  : "text-white/60 hover:text-white"
               }`}
               onClick={() => setMobileOpen(false)}
             >

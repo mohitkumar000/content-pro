@@ -5,6 +5,8 @@ import ContactForm from "@/components/ContactForm";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import CountUp from "react-countup"; // ✅ Animated numbers
+import { motion } from "framer-motion"; // ✅ Scroll animations
 
 const Index = () => {
   const [selectedService, setSelectedService] = useState("");
@@ -19,39 +21,43 @@ const Index = () => {
   }, []);
 
   const featuredServices = [
-    {
-      title: "YouTube Automation",
-      description:
-        "End-to-end YouTube channel management, from scripting and editing to branding and analytics reporting.",
-      features: [
-        "Video scripting and editing",
-        "Thumbnail design and SEO",
-        "Channel branding and strategy",
-        "Performance analytics",
-      ],
-    },
-    {
-      title: "Professional Copywriting",
-      description:
-        "Conversion-focused copywriting for digital platforms, optimized for engagement, clarity, and brand voice.",
-      features: [
-        "Social media ghostwriting",
-        "Blog and article writing",
-        "Email campaigns and sales copy",
-        "Landing page optimization",
-      ],
-    },
-    {
-      title: "Content Strategy & More",
-      description:
-        "Custom content strategies tailored for creators and brands, including planning, research, and execution.",
-      features: [
-        "Content repurposing and planning",
-        "Research and fact-checking",
-        "Podcast support services",
-        "Digital product creation",
-      ],
-    },
+   {
+  title: "YouTube Automation (Done-for-You)",
+  description:
+    "Complete channel management from scripting to publishing, all handled by our expert team.",
+  features: [
+    "Video scripting and editing",
+    "Thumbnail design and SEO optimization",
+    "Channel branding and growth strategy",
+    "Analytics and performance tracking",
+  ],
+  cta: "Get Quote",
+},
+{
+  title: "AI Agents & Personalized Automation",
+  description:
+    "Smart solutions that save time, reduce costs, and automate your workflows.",
+  features: [
+    "AI-powered customer support agents",
+    "Personalized automation for sales, research, or content",
+    "Workflow integrations with CRMs and APIs",
+    "24/7 task execution and monitoring",
+  ],
+  cta: "Get Quote",
+},
+{
+  title: "Apps & Websites On-the-Go",
+  description:
+    "Fast, scalable digital products to bring your ideas to life.",
+  features: [
+    "Custom websites (frontend + backend)",
+    "Web app development for startups and enterprises",
+    "Responsive, mobile-friendly design",
+    "SEO-ready, performance-optimized builds",
+  ],
+  cta: "Get Quote",
+},
+
   ];
 
   // ✅ Schema.org structured data
@@ -135,15 +141,14 @@ const Index = () => {
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
-              Unlimited Content, <br />
+              From Content to Code<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
-                Single Monthly Charge
+                We Build It All
               </span>
             </h1>
 
             <p className="text-xl md:text-2xl text-white/80 leading-relaxed mb-10">
-              TheGrowthGenie delivers professional content & YouTube services
-              within budget — ensuring accessibility for everyone.
+              TheGrowthGenie delivers All the Services You Need. One Roof.
             </p>
 
             {/* CTA Buttons */}
@@ -169,63 +174,74 @@ const Index = () => {
           </div>
         </div>
       </section>
-
       {/* 🚀 Floating Services Line */}
       <div className="relative overflow-hidden py-6 border-y border-white/10 bg-black/40 z-10">
         <div className="animate-marquee whitespace-nowrap flex items-center gap-16 text-white/80 text-lg font-medium">
+          {/* Original services */}
           <div className="flex items-center gap-2">▶️ YouTube Automation</div>
           <div className="flex items-center gap-2">🎬 Video Editing</div>
           <div className="flex items-center gap-2">✍️ Copywriting</div>
           <div className="flex items-center gap-2">📊 Analytics</div>
           <div className="flex items-center gap-2">🖼️ Thumbnail Design</div>
           <div className="flex items-center gap-2">🚀 Growth Strategy</div>
-          {/* Duplicate for loop */}
+
+          {/* New services */}
+          <div className="flex items-center gap-2">🤖 AI Agents</div>
+          <div className="flex items-center gap-2">📱 App Development</div>
+          <div className="flex items-center gap-2">💬 Chatbots</div>
+          <div className="flex items-center gap-2">🌟 Influencer Campaigns</div>
+          <div className="flex items-center gap-2">📢 Social Media Management</div>
+
+          {/* Duplicate for seamless loop */}
           <div className="flex items-center gap-2">▶️ YouTube Automation</div>
           <div className="flex items-center gap-2">🎬 Video Editing</div>
           <div className="flex items-center gap-2">✍️ Copywriting</div>
           <div className="flex items-center gap-2">📊 Analytics</div>
           <div className="flex items-center gap-2">🖼️ Thumbnail Design</div>
           <div className="flex items-center gap-2">🚀 Growth Strategy</div>
+          <div className="flex items-center gap-2">🤖 AI Agents</div>
+          <div className="flex items-center gap-2">📱 App Development</div>
+          <div className="flex items-center gap-2">💬 Chatbots</div>
+          <div className="flex items-center gap-2">🌟 Influencer Campaigns</div>
+          <div className="flex items-center gap-2">📢 Social Media Management</div>
         </div>
       </div>
+
 
       {/* 🌍 Social Proof Section */}
       <section className="py-20 relative z-10">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Trusted by Creators Worldwide
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Your one-stop partner for content code and campaigns
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Join hundreds of successful creators who trust us with their
-              content and growth
+             We combine technology, content, and strategy to help your brand scale smarter.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="bg-gradient-card rounded-3xl p-10 border border-border/50 shadow-card hover:shadow-elevated transition-all duration-500 hover:-translate-y-2 group">
-              <div className="text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
-                100+
-              </div>
-              <div className="text-xl font-semibold mb-2">Creators Served</div>
-              <p className="text-muted-foreground">Across all platforms</p>
-            </div>
-
-            <div className="bg-gradient-card rounded-3xl p-10 border border-border/50 shadow-card hover:shadow-elevated transition-all duration-500 hover:-translate-y-2 group">
-              <div className="text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
-                6+
-              </div>
-              <div className="text-xl font-semibold mb-2">Years of Trust</div>
-              <p className="text-muted-foreground">Proven track record</p>
-            </div>
-
-            <div className="bg-gradient-card rounded-3xl p-10 border border-border/50 shadow-card hover:shadow-elevated transition-all duration-500 hover:-translate-y-2 group">
-              <div className="text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
-                98%
-              </div>
-              <div className="text-xl font-semibold mb-2">Satisfaction Rate</div>
-              <p className="text-muted-foreground">Happy creators</p>
-            </div>
+            {/* ✅ Animated Numbers */}
+            {[
+              { end: 100, suffix: "+", label: "Creators Served", desc: "Across all platforms" },
+              { end: 6, suffix: "+", label: "Years of Trust", desc: "Proven track record" },
+              { end: 98, suffix: "%", label: "Satisfaction Rate", desc: "Happy creators" },
+            ].map((stat, idx) => (
+              <motion.div
+                key={idx}
+                className="bg-gradient-card rounded-3xl p-10 border border-border/50 shadow-card hover:shadow-elevated transition-all duration-700 hover:-translate-y-2"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: idx * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <div className="text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
+                  <CountUp start={1} end={stat.end} duration={3} suffix={stat.suffix} />
+                </div>
+                <div className="text-xl font-semibold mb-2">{stat.label}</div>
+                <p className="text-muted-foreground">{stat.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -281,46 +297,30 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-primary rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-glow group-hover:scale-110 transition">
-                <span className="text-3xl font-bold text-white">✓</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Proven Results</h3>
-              <p className="text-muted-foreground">
-                Track record of growing channels and converting audiences.
-              </p>
-            </div>
-
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-primary rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-glow group-hover:scale-110 transition">
-                <span className="text-3xl font-bold text-white">⚡</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Fast Turnaround</h3>
-              <p className="text-muted-foreground">
-                Quick delivery without compromising on quality.
-              </p>
-            </div>
-
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-primary rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-glow group-hover:scale-110 transition">
-                <span className="text-3xl font-bold text-white">🎯</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Tailored Strategy</h3>
-              <p className="text-muted-foreground">
-                Custom approaches based on your goals and audience.
-              </p>
-            </div>
-
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-primary rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-glow group-hover:scale-110 transition">
-                <span className="text-3xl font-bold text-white">📈</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Growth Focused</h3>
-              <p className="text-muted-foreground">
-                Every piece of content is optimized for growth & engagement.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            {[
+              { icon: "✓", title: "Proven Results", desc: "Track record of growing channels and converting audiences." },
+              { icon: "⚡", title: "Fast Turnaround", desc: "Quick delivery without compromising on quality." },
+              { icon: "🎯", title: "Tailored Strategy", desc: "Custom approaches based on your goals and audience." },
+              { icon: "📈", title: "Growth Focused", desc: "Every piece of content is optimized for growth & engagement." },
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                className="text-center group p-8 rounded-3xl border border-border/50 bg-white/5 backdrop-blur-md shadow-card hover:shadow-glow transition-all duration-500 hover:-translate-y-3"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: idx * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lg group-hover:scale-125 group-hover:rotate-6 transition-all duration-500">
+                  <span className="text-3xl font-bold text-white">{item.icon}</span>
+                </div>
+                <h3 className="text-xl font-semibold mb-3 group-hover:text-indigo-400 transition">
+                  {item.title}
+                </h3>
+                <p className="text-muted-foreground">{item.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

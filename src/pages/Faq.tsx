@@ -2,101 +2,162 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 
-const faqs = [
+type FAQ = { q: string; a: string };
+
+const faqSections: { title: string; faqs: FAQ[] }[] = [
   {
-    q: "Can you also help me start a face channel?",
-    a: "Yes! If you choose a face channel, we’ll provide you with a word-by-word script. All you need to do is record yourself reading it on camera. Our team will handle editing, thumbnail design, and complete channel management.",
+    title: "YouTube Automation",
+    faqs: [
+      {
+        q: "Can you also help me start a face channel?",
+        a: "Yes! If you choose a face channel, we’ll provide you with a word-by-word script. You record it on camera, and our team handles editing, thumbnail design, and full management.",
+      },
+      {
+        q: "How will you help me choose the right niche?",
+        a: "Onboarding calls guide you based on passion, profit potential, and proven viral niches. We’ll help you choose with confidence.",
+      },
+      {
+        q: "Who handles the content research?",
+        a: "Our research team tracks trends daily to deliver high-quality, trend-backed videos on time.",
+      },
+      {
+        q: "Do you also create YouTube Shorts?",
+        a: "Yes. We create Shorts tailored to your strategy, discussed during onboarding.",
+      },
+      {
+        q: "Can I take only scripting or editing services?",
+        a: "Absolutely. We can create a smaller, custom package at a lower cost.",
+      },
+    ],
   },
   {
-    q: "How will you help me choose the right niche?",
-    a: "During the onboarding call, our experts will guide you based on your passion, interests, and profit potential. We’ll also show real examples of viral channels that monetized within a month, so you can pick the best niche with confidence.",
+    title: "Full-Stack Development (Websites & Apps)",
+    faqs: [
+      {
+        q: "What kind of websites and apps do you build?",
+        a: "From landing pages to SaaS platforms and enterprise systems — responsive, fast, and scalable builds.",
+      },
+      {
+        q: "What technologies do you use?",
+        a: "React, Next.js, Node.js, Express, MongoDB, and more. Always modern, secure, and scalable.",
+      },
+      {
+        q: "Do you build MVPs for startups?",
+        a: "Yes. We specialize in quick MVPs so startups can validate ideas before scaling.",
+      },
+      {
+        q: "Will my website/app be SEO-friendly and mobile-responsive?",
+        a: "Yes. All builds are optimized for SEO, speed, and mobile-first design.",
+      },
+      {
+        q: "Do you offer ongoing support and maintenance?",
+        a: "Yes. We provide post-launch support for updates, bug fixes, and upgrades.",
+      },
+    ],
   },
   {
-    q: "Who handles the content research?",
-    a: "Our research team constantly tracks trends and analyzes YouTube content around the clock. You don’t need to worry about topics — we’ll deliver high-quality, trend-backed videos on time.",
+    title: "Personalized AI Agents & Automation",
+    faqs: [
+      {
+        q: "What are AI agents and how do they help?",
+        a: "AI agents automate tasks like customer support, sales follow-ups, data collection, and research — available 24/7.",
+      },
+      {
+        q: "Can you build AI agents specific to my industry?",
+        a: "Yes. We customize agents for e-commerce, SaaS, healthcare, finance, and more.",
+      },
+      {
+        q: "Do you integrate AI agents with existing tools?",
+        a: "Yes. We integrate with CRMs (Salesforce, HubSpot), project tools (Slack, Notion), or any API-based platform.",
+      },
+      {
+        q: "Are these agents trained in my brand voice?",
+        a: "Yes. We fine-tune them with your docs, FAQs, and guidelines for personalized accuracy.",
+      },
+      {
+        q: "Can AI agents replace my customer support team?",
+        a: "They automate 70–80% of repetitive queries, freeing humans for complex cases.",
+      },
+    ],
   },
   {
-    q: "Do you also create YouTube Shorts?",
-    a: "Yes, our team is capable of creating Shorts. While we don’t have a fixed Shorts policy, we can tailor it to your needs and decide together during the call.",
-  },
-  {
-    q: "Can I take only scripting or editing services instead of a full package?",
-    a: "Absolutely. If you need just one or two services, you can discuss your requirements on a call. We’ll create a custom package for you at a lower price.",
-  },
-  {
-    q: "What’s included in the mentorship program?",
-    a: "Our mentorship calls share secret strategies, growth frameworks, and proven work ethics. Many students from our mentorship program have achieved incredible results. These calls are included in our $3000/month package.",
-  },
-  {
-    q: "Do you also handle brand deals, sponsorships, or affiliate marketing?",
-    a: "Yes, our team works with multiple clients on brand deals, sponsorships, product promotions, and affiliate marketing. These advanced services are included in the $3000/month package.",
-  },
-  {
-    q: "Can you guarantee results on YouTube?",
-    a: "YouTube is unpredictable, so we don’t guarantee results. However, 95% of our clients have achieved success with us. Even those who didn’t see quick results appreciated our guidance and mentorship. If you want, we can connect you with past clients for honest feedback.",
-  },
-  {
-    q: "Do you offer refunds?",
-    a: "No. We follow a strict no-refund policy because we clarify everything in the onboarding call and show you demos before you pay. Once we start, our team invests significant effort and resources into your channel.",
-  },
-  {
-    q: "Will I need to share my YouTube login details?",
-    a: "No. If you already have a channel, we only request manager access. If you don’t have one, we’ll guide you to create a new channel and then simply make us the manager.",
-  },
-  {
-    q: "Can I run both faceless and face channels at the same time?",
-    a: "Yes, we can create a custom package for you if you want both. You can also upgrade or downgrade your plan anytime. Our 24/7 support ensures that any issue is resolved within 24 hours through a single email.",
+    title: "Influencer Campaigns & Promotions",
+    faqs: [
+      {
+        q: "Do you run influencer campaigns for AI startups and brands?",
+        a: "Yes. We’ve managed campaigns for Lyzr AI, HeyBoss AI, Revid AI, and 100+ other brands.",
+      },
+      {
+        q: "Which platforms do you cover?",
+        a: "Mainly LinkedIn, Twitter (X), and YouTube — our 100+ influencer network drives quality engagement.",
+      },
+      {
+        q: "Do you only provide introductions or full management?",
+        a: "We handle everything: strategy, creator selection, content, publishing, and reporting.",
+      },
+      {
+        q: "What packages do you offer?",
+        a: "Starter ($5k), Growth ($10k), and Enterprise (custom pricing).",
+      },
+      {
+        q: "How do you measure campaign performance?",
+        a: "We track impressions, clicks, leads, and conversions via live dashboards and weekly reports.",
+      },
+    ],
   },
 ];
 
 const Faq: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [open, setOpen] = useState<{ section: number | null; faq: number | null }>({
+    section: null,
+    faq: null,
+  });
 
-  const toggle = (idx: number) => {
-    setOpenIndex(openIndex === idx ? null : idx);
+  const toggle = (sIdx: number, fIdx: number) => {
+    if (open.section === sIdx && open.faq === fIdx) {
+      setOpen({ section: null, faq: null });
+    } else {
+      setOpen({ section: sIdx, faq: fIdx });
+    }
   };
 
-  // ✅ Generate FAQPage JSON-LD schema
+  // ✅ Schema for SEO
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": faqs.map((faq) => ({
-      "@type": "Question",
-      "name": faq.q,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.a,
-      },
-    })),
+    mainEntity: faqSections.flatMap((section) =>
+      section.faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      }))
+    ),
   };
 
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
-      {/* ✅ SEO + Schema */}
+      {/* SEO */}
       <Helmet>
         <title>FAQ | The Growth Genie</title>
         <meta
           name="description"
-          content="Find answers to frequently asked questions about YouTube automation, faceless channels, mentorship, pricing, and services at The Growth Genie."
+          content="FAQs on YouTube automation, websites, apps, AI agents, and influencer campaigns. Learn more about The Growth Genie services."
         />
         <link rel="canonical" href="https://www.thegrowthgenie.com/faq" />
-        <script type="application/ld+json">
-          {JSON.stringify(faqSchema)}
-        </script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
-      {/* 🔲 Background grid */}
+      {/* Background */}
       <div className="absolute inset-0 -z-10 bg-black">
         <div
           className="w-full h-full"
           style={{
             backgroundImage: `
-              linear-gradient(transparent 97%, rgba(255,255,255,0.08) 100%),
-              linear-gradient(90deg, transparent 97%, rgba(255,255,255,0.08) 100%)
+              linear-gradient(transparent 97%, rgba(255,255,255,0.06) 100%),
+              linear-gradient(90deg, transparent 97%, rgba(255,255,255,0.06) 100%)
             `,
             backgroundSize: "50px 50px",
             transform: "perspective(600px) rotateX(60deg)",
-            transformOrigin: "center top",
           }}
         />
       </div>
@@ -111,33 +172,52 @@ const Faq: React.FC = () => {
           </span>
         </h1>
         <p className="text-xl text-white/80 max-w-3xl mx-auto">
-          Everything you need to know before getting started.
+          Everything you need to know across our services.
         </p>
       </section>
 
-      {/* FAQ Section */}
-      <section className="relative z-10 py-12">
-        <div className="container mx-auto px-6 max-w-4xl">
-          {faqs.map((faq, idx) => (
+      {/* FAQ Sections */}
+{/* FAQ Sections */}
+<section className="relative z-10 py-12">
+  <div className="container mx-auto px-6 max-w-5xl space-y-20">
+    {faqSections.map((section, sIdx) => {
+      // 🎨 Gradient colors based on section index
+      const gradients = [
+        "from-pink-500 via-red-400 to-orange-400", // YouTube
+        "from-green-400 via-emerald-500 to-teal-400", // Websites & Apps
+        "from-indigo-400 via-blue-500 to-purple-500", // AI Agents
+        "from-yellow-400 via-orange-500 to-pink-500", // Influencer Campaigns
+      ];
+      const gradient = gradients[sIdx % gradients.length];
+
+      return (
+        <div key={sIdx}>
+          {/* Section Heading */}
+          <h2
+            className={`text-4xl md:text-5xl font-extrabold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r ${gradient}`}
+          >
+            {section.title}
+          </h2>
+
+          {/* FAQ Items */}
+          {section.faqs.map((faq, fIdx) => (
             <div
-              key={idx}
-              className="mb-6 bg-white/5 border border-white/10 rounded-2xl shadow-lg overflow-hidden"
+              key={fIdx}
+              className="mb-4 bg-white/5 border border-white/10 rounded-2xl shadow-lg overflow-hidden"
             >
-              {/* Question */}
               <button
-                onClick={() => toggle(idx)}
+                onClick={() => toggle(sIdx, fIdx)}
                 className="w-full flex justify-between items-center px-6 py-5 text-left font-semibold text-lg text-white hover:text-indigo-400 transition-all duration-300"
               >
                 {faq.q}
                 <span className="ml-4 text-indigo-400 text-2xl font-bold">
-                  {openIndex === idx ? "−" : "+"}
+                  {open.section === sIdx && open.faq === fIdx ? "−" : "+"}
                 </span>
               </button>
 
-              {/* Answer */}
               <div
                 className={`transition-all duration-500 ease-in-out ${
-                  openIndex === idx
+                  open.section === sIdx && open.faq === fIdx
                     ? "max-h-screen opacity-100 px-6 pb-6"
                     : "max-h-0 opacity-0 px-6"
                 } overflow-hidden`}
@@ -149,7 +229,11 @@ const Faq: React.FC = () => {
             </div>
           ))}
         </div>
-      </section>
+      );
+    })}
+  </div>
+</section>
+
     </div>
   );
 };
