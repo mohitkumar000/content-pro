@@ -14,12 +14,12 @@ import Footer from "@/components/layout/Footer";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import YoutubeServices from "./pages/YoutubeServices";
-import Copywriting from "./pages/Copywriting";
-import OtherServices from "./pages/OtherServices";
+import OtherServices from "./pages/CompleteTech";
 import Contact from "./pages/Contact";
 import PricingPage from "./pages/PricingPage";
 import OurWork from "./pages/OurWork";
 import Faq from "./pages/Faq";
+import InfluencerCampaigns from "./pages/Influencer-campaigns"; // ✅ NEW IMPORT
 
 const queryClient = new QueryClient();
 
@@ -36,12 +36,12 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/youtube-services" element={<YoutubeServices />} />
-                <Route path="/copywriting" element={<Copywriting />} />
-                <Route path="/other-services" element={<OtherServices />} />
+                <Route path="/Complete-Tech" element={<OtherServices />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/pricing" element={<PricingPage />} />
                 <Route path="/our-work" element={<OurWork />} />
                 <Route path="/faq" element={<Faq />} />
+                <Route path="/Influencer-Campaigns" element={<InfluencerCampaigns />} /> {/* ✅ NEW ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

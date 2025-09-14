@@ -10,43 +10,67 @@ interface ContactFormProps {
 
 const SELECTED_PREFIX = "Selected plan: ";
 
+// ✅ Plans grouped by service
+const SERVICE_PLANS: Record<string, string[]> = {
+  "YouTube Automation": [
+    "Starter – $699/month",
+    "Growth – $1499/month",
+    "Scale – $2999/month",
+    "Custom / Enterprise",
+  ],
+  "Website & App Development": [
+    "Starter Website – $599+",
+    "Standard Package – $1,499",
+    "Pro Package – $3,499",
+    "Custom Development",
+  ],
+  "Personalized AI Agent": [
+    "Baseline Agent – $3,000+",
+    "Enterprise Agent – Custom Pricing",
+  ],
+  "Influencer Campaigns": [
+    "Starter – $5,000",
+    "Growth – $10,000",
+    "Enterprise – Custom Pricing",
+  ],
+};
+
 const REFERRAL_CODES: string[] = [
   "A1B2C3", "X9Y8Z7", "HELLO1", "CODE45", "GIFT99",
   "REF001", "REF002", "REF003", "REF004", "REF005",
-  "REF099", "REF100"
+  "REF099", "REF100",
 ];
 
 const ContactForm = ({ subject }: ContactFormProps) => {
   const [form, setForm] = useState({ name: "", email: "", message: "", referral: "" });
   const [phone, setPhone] = useState<string>("");
 
+  const [selectedService, setSelectedService] = useState<string>("");
   const [selectedPlan, setSelectedPlan] = useState<string>("");
+
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [referralStatus, setReferralStatus] = useState<"idle" | "valid" | "invalid">("idle");
   const insertedRef = useRef(false);
 
+  // ✅ Handle subject prefill (from Pricing redirect)
   useEffect(() => {
     if (subject) {
       const planText = subject.replace(/^Interest in\s*/i, "");
       setSelectedPlan(planText);
 
-      const currentMsg = form.message || "";
-      if (!currentMsg.startsWith(`${SELECTED_PREFIX}${planText}`)) {
-        const newMsg = `${SELECTED_PREFIX}${planText}\n\n${currentMsg.replace(
+      // Insert into message on load
+      setForm((f) => ({
+        ...f,
+        message: `${SELECTED_PREFIX}${planText}\n\n${f.message.replace(
           new RegExp(`^${SELECTED_PREFIX}.*\\n\\n`),
           ""
-        )}`;
-        setForm((f) => ({ ...f, message: newMsg }));
-        insertedRef.current = true;
-      }
-    } else {
-      setSelectedPlan("");
-      const cleaned = form.message.replace(new RegExp(`^${SELECTED_PREFIX}.*\\n\\n`), "");
-      setForm((f) => ({ ...f, message: cleaned }));
-      insertedRef.current = false;
+        )}`,
+      }));
+      insertedRef.current = true;
     }
   }, [subject]);
 
+  // ✅ Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
@@ -60,8 +84,12 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         setReferralStatus("invalid");
       }
     }
+  };
 
-    if (name === "message") insertedRef.current = true;
+  // ✅ Always inject selectedPlan into message before submit
+  const buildFinalMessage = (rawMessage: string) => {
+    const cleanedMsg = rawMessage.replace(new RegExp(`^${SELECTED_PREFIX}.*\\n\\n`), "");
+    return selectedPlan ? `${SELECTED_PREFIX}${selectedPlan}\n\n${cleanedMsg}` : cleanedMsg;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -79,10 +107,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
     }
 
     const formattedPhone = phone.startsWith("+") ? phone : `+${phone}`;
-    const planNotice = selectedPlan ? `${SELECTED_PREFIX}${selectedPlan}\n\n` : "";
-    const finalMessage = form.message.startsWith(SELECTED_PREFIX)
-      ? form.message
-      : `${planNotice}${form.message}`;
+    const finalMessage = buildFinalMessage(form.message);
 
     try {
       setStatus("sending");
@@ -96,7 +121,11 @@ const ContactForm = ({ subject }: ContactFormProps) => {
           phone: formattedPhone,
           message: finalMessage,
           referral: form.referral || "—",
-          subject: selectedPlan ? `Interest in ${selectedPlan}` : "General inquiry",
+          subject: selectedPlan
+            ? `Interest in ${selectedService} – ${selectedPlan}`
+            : selectedService
+            ? `Interest in ${selectedService}`
+            : "General inquiry",
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
@@ -107,6 +136,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
       setForm({ name: "", email: "", message: "", referral: "" });
       setPhone("");
       setSelectedPlan("");
+      setSelectedService("");
       setReferralStatus("idle");
       insertedRef.current = false;
 
@@ -123,16 +153,57 @@ const ContactForm = ({ subject }: ContactFormProps) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="
-        space-y-5 w-full min-w-0
-        bg-white/5 backdrop-blur-xl
-        rounded-none md:rounded-2xl
-        shadow-lg
-        p-6 sm:p-8 md:p-10
-        border border-transparent md:border-white/20
-      "
+      className="space-y-5 w-full min-w-0 bg-white/5 backdrop-blur-xl rounded-none md:rounded-2xl shadow-lg p-6 sm:p-8 md:p-10 border border-transparent md:border-white/20"
       aria-live="polite"
     >
+      {/* ✅ Service dropdown */}
+      <div>
+        <label className="block text-sm font-medium text-white mb-2">Service</label>
+        <select
+          value={selectedService}
+          onChange={(e) => {
+            setSelectedService(e.target.value);
+            setSelectedPlan("");
+          }}
+          disabled={isDisabled}
+          className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black text-base"
+        >
+          <option value="">Select a service</option>
+          {Object.keys(SERVICE_PLANS).map((service) => (
+            <option key={service} value={service}>
+              {service}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* ✅ Plan dropdown */}
+      {selectedService && (
+        <div>
+          <label className="block text-sm font-medium text-white mb-2">Plan</label>
+          <select
+            value={selectedPlan}
+            onChange={(e) => {
+              const newPlan = e.target.value;
+              setSelectedPlan(newPlan);
+              setForm((f) => ({
+                ...f,
+                message: buildFinalMessage(f.message),
+              }));
+            }}
+            disabled={isDisabled}
+            className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black text-base"
+          >
+            <option value="">Select a plan</option>
+            {SERVICE_PLANS[selectedService].map((plan) => (
+              <option key={plan} value={plan}>
+                {plan}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
       <input
         name="name"
         type="text"
@@ -141,9 +212,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full h-14 px-4 rounded-lg border border-gray-300 
-                   bg-white text-black placeholder-gray-500 
-                   focus:ring-2 focus:ring-indigo-500 text-base"
+        className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 text-base"
       />
 
       <input
@@ -154,45 +223,41 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full h-14 px-4 rounded-lg border border-gray-300 
-                   bg-white text-black placeholder-gray-500 
-                   focus:ring-2 focus:ring-indigo-500 text-base"
+        className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 text-base"
       />
 
       {/* Phone Input */}
-      <div className="w-full">
-        <PhoneInput
-          country={"us"}
-          value={phone}
-          onChange={(value: string) => setPhone(value)}
-          disabled={isDisabled}
-          inputProps={{ name: "phone", required: true }}
-          inputStyle={{
-            height: 56,
-            width: "100%",
-            fontSize: 16,
-            paddingLeft: 60,
-            borderRadius: 10,
-            backgroundColor: "#fff",
-            color: "#000",
-            border: "1px solid #ccc",
-          }}
-          buttonStyle={{
-            height: 56,
-            width: 60,
-            borderRadius: 10,
-            backgroundColor: "#f9f9f9",
-            borderRight: "1px solid #ccc",
-          }}
-          containerStyle={{ width: "100%" }}
-          dropdownStyle={{
-            zIndex: 9999,
-            backgroundColor: "#fff",
-            color: "#000",
-            border: "1px solid #ccc",
-          }}
-        />
-      </div>
+      <PhoneInput
+        country={"us"}
+        value={phone}
+        onChange={(value: string) => setPhone(value)}
+        disabled={isDisabled}
+        inputProps={{ name: "phone", required: true }}
+        inputStyle={{
+          height: 56,
+          width: "100%",
+          fontSize: 16,
+          paddingLeft: 60,
+          borderRadius: 10,
+          backgroundColor: "#fff",
+          color: "#000",
+          border: "1px solid #ccc",
+        }}
+        buttonStyle={{
+          height: 56,
+          width: 60,
+          borderRadius: 10,
+          backgroundColor: "#f9f9f9",
+          borderRight: "1px solid #ccc",
+        }}
+        containerStyle={{ width: "100%" }}
+        dropdownStyle={{
+          zIndex: 9999,
+          backgroundColor: "#fff",
+          color: "#000",
+          border: "1px solid #ccc",
+        }}
+      />
 
       {/* Referral Code */}
       <div>
@@ -203,9 +268,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
           value={form.referral}
           onChange={handleChange}
           disabled={isDisabled}
-          className="w-full h-14 px-4 rounded-lg border border-gray-300 
-                     bg-white text-black placeholder-gray-500 
-                     focus:ring-2 focus:ring-indigo-500 text-base"
+          className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 text-base"
         />
         {referralStatus === "valid" && (
           <p className="text-green-600 text-sm mt-1">✅ Referral code valid</p>
@@ -215,15 +278,6 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         )}
       </div>
 
-      {selectedPlan && (
-        <div className="p-4 rounded-md bg-yellow-100 border border-yellow-300 text-sm text-yellow-900 shadow-inner">
-          <strong>Selected plan:</strong> {selectedPlan}
-          <div className="text-xs text-gray-700 mt-1">
-            This plan is included in your message and will be visible to our team.
-          </div>
-        </div>
-      )}
-
       <textarea
         name="message"
         placeholder="Your Message"
@@ -231,49 +285,15 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         onChange={handleChange}
         required
         disabled={isDisabled}
-        className="w-full h-40 px-4 rounded-lg border border-gray-300 
-                   bg-white text-black placeholder-gray-500 
-                   focus:ring-2 focus:ring-indigo-500 text-base"
+        className="w-full h-40 px-4 rounded-lg border border-gray-300 bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 text-base"
       />
 
       <Button
         type="submit"
         disabled={isDisabled}
-        className="w-full h-14 text-lg
-                   bg-gradient-to-r from-indigo-500 to-blue-600 
-                   text-white rounded-lg shadow-md 
-                   hover:shadow-lg hover:scale-[1.02] 
-                   transition-all duration-300 font-semibold"
+        className="w-full h-14 text-lg bg-gradient-to-r from-indigo-500 to-blue-600 text-white rounded-lg shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300 font-semibold"
       >
-        {status === "sending" ? (
-          <>
-            <svg
-              className="animate-spin h-5 w-5 mr-2"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-                strokeWidth="4"
-                stroke="currentColor"
-                className="opacity-25"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-              />
-            </svg>
-            Sending...
-          </>
-        ) : status === "sent" ? (
-          "✅ Sent"
-        ) : (
-          "Send Message"
-        )}
+        {status === "sending" ? "Sending..." : status === "sent" ? "✅ Sent" : "Send Message"}
       </Button>
     </form>
   );
