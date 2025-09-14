@@ -1,9 +1,10 @@
 // src/components/ContactForm.tsx
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { Button } from "@/components/ui/button";
 import emailjs from "emailjs-com";
+import { toast } from "sonner";
 
 interface ContactFormProps {
   subject?: string;
@@ -88,11 +89,15 @@ const ContactForm = ({ subject }: ContactFormProps) => {
     if (status === "sending") return;
 
     if (!form.name || !form.email || !phone || !form.message) {
-      alert("Please fill all required fields.");
+      toast.error("⚠️ Missing Info", {
+        description: "Please fill all required fields.",
+      });
       return;
     }
     if (form.referral && referralStatus !== "valid") {
-      alert("Referral code is invalid.");
+      toast.error("❌ Invalid Referral Code", {
+        description: "Please enter a valid referral code or leave it blank.",
+      });
       return;
     }
 
@@ -121,7 +126,9 @@ const ContactForm = ({ subject }: ContactFormProps) => {
       );
 
       setStatus("sent");
-      alert("✅ Your message has been sent successfully!");
+      toast.success("✅ Message Sent", {
+        description: "Thanks for reaching out! Our team will contact you shortly.",
+      });
 
       setForm({ name: "", email: "", message: "", referral: "" });
       setPhone("");
@@ -129,15 +136,17 @@ const ContactForm = ({ subject }: ContactFormProps) => {
       setSelectedService("");
       setReferralStatus("idle");
 
-      setTimeout(() => setStatus("idle"), 1500);
+      setTimeout(() => setStatus("idle"), 2000);
     } catch (err) {
       console.error("EmailJS error:", err);
-      alert("Something went wrong. Please try again.");
+      toast.error("❌ Failed to Send", {
+        description: "Something went wrong. Please try again later.",
+      });
       setStatus("idle");
     }
   };
 
-  const isDisabled = status === "sending"; // ✅ Lock during sending
+  const isDisabled = status === "sending"; // ✅ Lock form during sending
 
   return (
     <form
@@ -214,6 +223,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         disabled={isDisabled}
         className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black"
       />
+
       <PhoneInput
         country={"us"}
         value={phone}
@@ -253,7 +263,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
       <Button
         type="submit"
         disabled={isDisabled}
-        className="w-full h-14 text-lg bg-gradient-to-r from-indigo-500 to-blue-600 text-white rounded-lg shadow-md"
+        className="w-full h-14 text-lg bg-gradient-to-r from-indigo-500 to-blue-600 text-white rounded-lg shadow-md hover:shadow-lg"
       >
         {status === "sending" ? "Sending..." : status === "sent" ? "✅ Sent" : "Send Message"}
       </Button>
