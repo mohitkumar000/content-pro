@@ -1,9 +1,16 @@
 // src/components/layout/Footer.tsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Mail, Globe, Zap } from "lucide-react"; // ✅ modern icons
 
 const Footer: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleNavClick = (path: string) => {
+    navigate(path);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <footer className="relative bg-gradient-to-b from-black via-black/95 to-black border-t border-white/10 mt-16 z-10">
       {/* 🌈 Subtle half rainbow line */}
@@ -12,7 +19,6 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-6 py-16">
         {/* Main footer content */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12 mb-12">
-          
           {/* Brand section */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-5">
@@ -54,12 +60,12 @@ const Footer: React.FC = () => {
                 { name: "FAQ", to: "/faq" },
               ].map((item, idx) => (
                 <li key={idx}>
-                  <Link
-                    to={item.to}
+                  <button
+                    onClick={() => handleNavClick(item.to)}
                     className="text-white/70 hover:text-white transition-colors duration-200 hover:translate-x-1 inline-block"
                   >
                     {item.name}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
