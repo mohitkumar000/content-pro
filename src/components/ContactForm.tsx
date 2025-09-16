@@ -1,4 +1,3 @@
-// src/components/ContactForm.tsx
 import { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -6,13 +5,32 @@ import { Button } from "@/components/ui/button";
 import emailjs from "emailjs-com";
 import { toast } from "sonner";
 
-interface ContactFormProps {
-  subject?: string;
-  selectedService?: string;
-  selectedPlan?: string;
-}
-
 const SELECTED_PREFIX = "Selected plan: ";
+
+// ✅ Service & Plans
+const SERVICE_PLANS: Record<string, string[]> = {
+  "YouTube Automation": [
+    "Starter – $699/month",
+    "Growth – $1499/month",
+    "Scale – $2999/month",
+    "Custom / Enterprise",
+  ],
+  "Website & App Development": [
+    "Starter Website – $599+",
+    "Standard Package – $1,499",
+    "Pro Package – $3,499",
+    "Custom Development",
+  ],
+  "Personalized AI Agent": [
+    "Baseline Agent – $3,000+",
+    "Enterprise Agent – Custom Pricing",
+  ],
+  "Influencer Campaigns": [
+    "Starter – $5,000",
+    "Growth – $10,000",
+    "Enterprise – Custom Pricing",
+  ],
+};
 
 // ✅ Allowed referral codes
 const REFERRAL_CODES: string[] = [
@@ -21,25 +39,26 @@ const REFERRAL_CODES: string[] = [
   "REF099", "REF100",
 ];
 
-const ContactForm = ({ subject, selectedService = "", selectedPlan = "" }: ContactFormProps) => {
+const ContactForm = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "", referral: "" });
   const [phone, setPhone] = useState<string>("");
+
+  const [selectedService, setSelectedService] = useState<string>("");
+  const [selectedPlan, setSelectedPlan] = useState<string>("");
 
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [referralStatus, setReferralStatus] = useState<"idle" | "valid" | "invalid">("idle");
 
-  // ✅ Pre-fill message if subject passed
+  // ✅ Load from localStorage if redirected from Pricing
   useEffect(() => {
-    if (subject) {
-      const planText = subject.replace(/^Interest in\s*/i, "");
-      setForm((f) => ({
-        ...f,
-        message: `${SELECTED_PREFIX}${planText}\n\n`,
-      }));
+    const fromPricing = localStorage.getItem("selectedService");
+    if (fromPricing) {
+      setSelectedPlan(fromPricing);
+      localStorage.removeItem("selectedService");
     }
-  }, [subject]);
+  }, []);
 
-  // ✅ Add plan prefix in message if selected
+  // ✅ Add plan prefix in message
   const injectPlanIntoMessage = (rawMessage: string, plan: string) => {
     const cleaned = rawMessage.replace(new RegExp(`^${SELECTED_PREFIX}.*\\n\\n`), "");
     return plan ? `${SELECTED_PREFIX}${plan}\n\n${cleaned}` : cleaned;
@@ -106,6 +125,8 @@ const ContactForm = ({ subject, selectedService = "", selectedPlan = "" }: Conta
 
       setForm({ name: "", email: "", message: "", referral: "" });
       setPhone("");
+      setSelectedPlan("");
+      setSelectedService("");
       setReferralStatus("idle");
 
       setTimeout(() => setStatus("idle"), 2000);
@@ -125,6 +146,55 @@ const ContactForm = ({ subject, selectedService = "", selectedPlan = "" }: Conta
       onSubmit={handleSubmit}
       className="space-y-5 w-full min-w-0 bg-white/5 backdrop-blur-xl rounded-none md:rounded-2xl shadow-lg p-6 sm:p-8 md:p-10 border border-transparent md:border-white/20"
     >
+      {/* Service dropdown */}
+      <div>
+        <label className="block text-sm font-medium text-white mb-2">Service</label>
+        <select
+          value={selectedService}
+          onChange={(e) => {
+            setSelectedService(e.target.value);
+            setSelectedPlan("");
+            setForm((f) => ({ ...f, message: "" }));
+          }}
+          disabled={isDisabled}
+          className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black text-base"
+        >
+          <option value="">Select a service</option>
+          {Object.keys(SERVICE_PLANS).map((service) => (
+            <option key={service} value={service}>
+              {service}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Plan dropdown */}
+      {selectedService && (
+        <div>
+          <label className="block text-sm font-medium text-white mb-2">Plan</label>
+          <select
+            value={selectedPlan}
+            onChange={(e) => {
+              const newPlan = e.target.value;
+              setSelectedPlan(newPlan);
+              setForm((f) => ({
+                ...f,
+                message: injectPlanIntoMessage(f.message, newPlan),
+              }));
+            }}
+            disabled={isDisabled}
+            className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black text-base"
+          >
+            <option value="">Select a plan</option>
+            {SERVICE_PLANS[selectedService].map((plan) => (
+              <option key={plan} value={plan}>
+                {plan}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
       {/* Inputs */}
       <input
         name="name"

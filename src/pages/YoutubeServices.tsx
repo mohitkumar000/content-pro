@@ -173,24 +173,22 @@ const YoutubeServices = () => {
         
 
         {/* Contact Section */}
-        <section id="contact-form" className="py-24 relative overflow-hidden">
-          <div className="container mx-auto px-6 relative z-10">
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Ready to Scale Your Business?
-              </h2>
-              <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-                From YouTube growth to AI automation and web apps — let’s build
-                something extraordinary together.
-              </p>
-              <ContactForm
-                subject={
-                  selectedService ? `Interest in ${selectedService}` : ""
-                }
-              />
-            </div>
-          </div>
-        </section>
+       <section id="contact-form" className="py-24 relative overflow-hidden">
+  <div className="container mx-auto px-6 relative z-10">
+    <div className="max-w-3xl mx-auto text-center">
+      <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+        Ready to Scale Your Business?
+      </h2>
+      <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+        From YouTube growth to AI automation and web apps — let’s build
+        something extraordinary together.
+      </p>
+      {/* ✅ Just use ContactForm */}
+      <ContactForm />
+    </div>
+  </div>
+</section>
+
       </div>
     </div>
   );

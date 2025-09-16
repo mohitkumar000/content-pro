@@ -213,19 +213,21 @@ const OtherServices = () => {
       </section>
 
       {/* 📩 Contact Section */}
-      <section id="contact-form" className="py-24 relative overflow-hidden z-10">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Let’s Build Something Extraordinary
-            </h2>
-            <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-              Ready to scale with AI, automation, and modern digital solutions? Let’s talk.
-            </p>
-            <ContactForm subject={selectedService ? `Interest in ${selectedService}` : ""} />
-          </div>
-        </div>
-      </section>
+   <section id="contact-form" className="py-24 relative overflow-hidden z-10">
+  <div className="container mx-auto px-6 relative z-10">
+    <div className="max-w-3xl mx-auto text-center">
+      <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+        Let’s Build Something Extraordinary
+      </h2>
+      <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+        Ready to scale with AI, automation, and modern digital solutions? Let’s talk.
+      </p>
+      {/* ✅ Only ContactForm (no subject prop now) */}
+      <ContactForm />
+    </div>
+  </div>
+</section>
+
     </div>
   );
 };
