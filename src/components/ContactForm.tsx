@@ -8,54 +8,30 @@ import { toast } from "sonner";
 
 interface ContactFormProps {
   subject?: string;
+  selectedService?: string;
+  selectedPlan?: string;
 }
 
 const SELECTED_PREFIX = "Selected plan: ";
 
-const SERVICE_PLANS: Record<string, string[]> = {
-  "YouTube Automation": [
-    "Starter – $699/month",
-    "Growth – $1499/month",
-    "Scale – $2999/month",
-    "Custom / Enterprise",
-  ],
-  "Website & App Development": [
-    "Starter Website – $599+",
-    "Standard Package – $1,499",
-    "Pro Package – $3,499",
-    "Custom Development",
-  ],
-  "Personalized AI Agent": [
-    "Baseline Agent – $3,000+",
-    "Enterprise Agent – Custom Pricing",
-  ],
-  "Influencer Campaigns": [
-    "Starter – $5,000",
-    "Growth – $10,000",
-    "Enterprise – Custom Pricing",
-  ],
-};
-
+// ✅ Allowed referral codes
 const REFERRAL_CODES: string[] = [
   "A1B2C3", "X9Y8Z7", "HELLO1", "CODE45", "GIFT99",
   "REF001", "REF002", "REF003", "REF004", "REF005",
   "REF099", "REF100",
 ];
 
-const ContactForm = ({ subject }: ContactFormProps) => {
+const ContactForm = ({ subject, selectedService = "", selectedPlan = "" }: ContactFormProps) => {
   const [form, setForm] = useState({ name: "", email: "", message: "", referral: "" });
   const [phone, setPhone] = useState<string>("");
-
-  const [selectedService, setSelectedService] = useState<string>("");
-  const [selectedPlan, setSelectedPlan] = useState<string>("");
 
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [referralStatus, setReferralStatus] = useState<"idle" | "valid" | "invalid">("idle");
 
+  // ✅ Pre-fill message if subject passed
   useEffect(() => {
     if (subject) {
       const planText = subject.replace(/^Interest in\s*/i, "");
-      setSelectedPlan(planText);
       setForm((f) => ({
         ...f,
         message: `${SELECTED_PREFIX}${planText}\n\n`,
@@ -63,11 +39,13 @@ const ContactForm = ({ subject }: ContactFormProps) => {
     }
   }, [subject]);
 
+  // ✅ Add plan prefix in message if selected
   const injectPlanIntoMessage = (rawMessage: string, plan: string) => {
     const cleaned = rawMessage.replace(new RegExp(`^${SELECTED_PREFIX}.*\\n\\n`), "");
     return plan ? `${SELECTED_PREFIX}${plan}\n\n${cleaned}` : cleaned;
   };
 
+  // ✅ Handle inputs + referral validation
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
@@ -79,6 +57,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
     }
   };
 
+  // ✅ Submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (status === "sending") return;
@@ -127,8 +106,6 @@ const ContactForm = ({ subject }: ContactFormProps) => {
 
       setForm({ name: "", email: "", message: "", referral: "" });
       setPhone("");
-      setSelectedPlan("");
-      setSelectedService("");
       setReferralStatus("idle");
 
       setTimeout(() => setStatus("idle"), 2000);
@@ -148,55 +125,6 @@ const ContactForm = ({ subject }: ContactFormProps) => {
       onSubmit={handleSubmit}
       className="space-y-5 w-full min-w-0 bg-white/5 backdrop-blur-xl rounded-none md:rounded-2xl shadow-lg p-6 sm:p-8 md:p-10 border border-transparent md:border-white/20"
     >
-      {/* Service dropdown */}
-      <div>
-        <label className="block text-sm font-medium text-white mb-2">Service</label>
-        <select
-          value={selectedService}
-          onChange={(e) => {
-            setSelectedService(e.target.value);
-            setSelectedPlan("");
-            setForm((f) => ({ ...f, message: "" }));
-          }}
-          disabled={isDisabled}
-          className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black text-base"
-        >
-          <option value="">Select a service</option>
-          {Object.keys(SERVICE_PLANS).map((service) => (
-            <option key={service} value={service}>
-              {service}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Plan dropdown */}
-      {selectedService && (
-        <div>
-          <label className="block text-sm font-medium text-white mb-2">Plan</label>
-          <select
-            value={selectedPlan}
-            onChange={(e) => {
-              const newPlan = e.target.value;
-              setSelectedPlan(newPlan);
-              setForm((f) => ({
-                ...f,
-                message: injectPlanIntoMessage(f.message, newPlan),
-              }));
-            }}
-            disabled={isDisabled}
-            className="w-full h-14 px-4 rounded-lg border border-gray-300 bg-white text-black text-base"
-          >
-            <option value="">Select a plan</option>
-            {SERVICE_PLANS[selectedService].map((plan) => (
-              <option key={plan} value={plan}>
-                {plan}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
       {/* Inputs */}
       <input
         name="name"
@@ -259,12 +187,41 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         className="w-full h-40 px-4 rounded-lg border border-gray-300 bg-white text-black"
       />
 
+      {/* Referral Code */}
+      <div>
+        <input
+          name="referral"
+          type="text"
+          placeholder="Referral Code (optional)"
+          value={form.referral}
+          onChange={handleChange}
+          disabled={isDisabled}
+          className={`w-full h-14 px-4 rounded-lg border ${
+            referralStatus === "valid"
+              ? "border-green-500"
+              : referralStatus === "invalid"
+              ? "border-red-500"
+              : "border-gray-300"
+          } bg-white text-black`}
+        />
+        {referralStatus === "valid" && (
+          <p className="text-green-400 text-sm mt-1">✅ Referral code is valid</p>
+        )}
+        {referralStatus === "invalid" && (
+          <p className="text-red-400 text-sm mt-1">❌ Referral code is invalid</p>
+        )}
+      </div>
+
       <Button
         type="submit"
         disabled={isDisabled}
         className="w-full h-14 text-lg bg-gradient-to-r from-indigo-500 to-blue-600 text-white rounded-lg shadow-md hover:shadow-lg"
       >
-        {status === "sending" ? "Sending..." : status === "sent" ? "✅ Sent" : "Send Message"}
+        {status === "sending"
+          ? "Sending..."
+          : status === "sent"
+          ? "✅ Sent"
+          : "Send Message"}
       </Button>
     </form>
   );
