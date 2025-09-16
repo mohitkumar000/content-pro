@@ -1,7 +1,7 @@
 // src/components/layout/Footer.tsx
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Mail, Globe, Zap } from "lucide-react"; // ✅ modern icons
+import { Mail, Globe, Zap } from "lucide-react";
 
 const Footer: React.FC = () => {
   const navigate = useNavigate();
