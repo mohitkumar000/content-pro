@@ -1,4 +1,3 @@
-// src/components/layout/Header.tsx
 import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -11,7 +10,6 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
 
-  // ✅ Track if we are on the contact page
   const [isContactPage, setIsContactPage] = useState(
     location.pathname === "/contact"
   );
@@ -30,11 +28,16 @@ const Header = () => {
     { name: "FAQ", href: "/faq" },
   ];
 
+  // ✅ Scroll to top helper
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <header className="sticky top-3 z-50 w-[94%] mx-auto rounded-2xl bg-black/30 backdrop-blur-xl border border-white/10 shadow-md">
       <div className="container mx-auto px-5 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center group">
+        <Link to="/" className="flex items-center group" onClick={scrollToTop}>
           {!logoError ? (
             <img
               src={logo}
@@ -55,6 +58,7 @@ const Header = () => {
             <Link
               key={item.name}
               to={item.href}
+              onClick={scrollToTop} // ✅ ensures scroll on click
               className={`relative text-base font-medium transition-all duration-300 hover:text-white ${
                 location.pathname === item.href
                   ? "text-white"
@@ -73,7 +77,10 @@ const Header = () => {
         {!isContactPage && (
           <div className="hidden md:flex items-center">
             <Button
-              onClick={() => navigate("/contact")}
+              onClick={() => {
+                navigate("/contact");
+                scrollToTop();
+              }}
               className="rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md hover:shadow-lg hover:scale-105 transition-all px-5 py-2 text-sm font-semibold"
             >
               Get Started
@@ -85,7 +92,10 @@ const Header = () => {
         <div className="md:hidden flex items-center space-x-2">
           {!isContactPage && (
             <Button
-              onClick={() => navigate("/contact")}
+              onClick={() => {
+                navigate("/contact");
+                scrollToTop();
+              }}
               className="rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs px-4 py-1.5 shadow hover:scale-105 transition-all"
             >
               Contact
@@ -109,12 +119,15 @@ const Header = () => {
             <Link
               key={item.name}
               to={item.href}
+              onClick={() => {
+                scrollToTop();
+                setMobileOpen(false);
+              }}
               className={`block text-lg font-medium transition-all duration-300 hover:translate-x-2 ${
                 location.pathname === item.href
                   ? "text-white"
                   : "text-white/60 hover:text-white"
               }`}
-              onClick={() => setMobileOpen(false)}
             >
               {item.name}
             </Link>

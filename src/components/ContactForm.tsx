@@ -12,7 +12,6 @@ interface ContactFormProps {
 
 const SELECTED_PREFIX = "Selected plan: ";
 
-// ✅ Plans grouped by service
 const SERVICE_PLANS: Record<string, string[]> = {
   "YouTube Automation": [
     "Starter – $699/month",
@@ -53,7 +52,6 @@ const ContactForm = ({ subject }: ContactFormProps) => {
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [referralStatus, setReferralStatus] = useState<"idle" | "valid" | "invalid">("idle");
 
-  // ✅ Handle subject prefill (from Pricing redirect)
   useEffect(() => {
     if (subject) {
       const planText = subject.replace(/^Interest in\s*/i, "");
@@ -65,13 +63,11 @@ const ContactForm = ({ subject }: ContactFormProps) => {
     }
   }, [subject]);
 
-  // ✅ Always inject selectedPlan freshly
   const injectPlanIntoMessage = (rawMessage: string, plan: string) => {
     const cleaned = rawMessage.replace(new RegExp(`^${SELECTED_PREFIX}.*\\n\\n`), "");
     return plan ? `${SELECTED_PREFIX}${plan}\n\n${cleaned}` : cleaned;
   };
 
-  // ✅ Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
@@ -83,7 +79,6 @@ const ContactForm = ({ subject }: ContactFormProps) => {
     }
   };
 
-  // ✅ Submit handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (status === "sending") return;
@@ -146,14 +141,14 @@ const ContactForm = ({ subject }: ContactFormProps) => {
     }
   };
 
-  const isDisabled = status === "sending"; // ✅ Lock form during sending
+  const isDisabled = status === "sending";
 
   return (
     <form
       onSubmit={handleSubmit}
       className="space-y-5 w-full min-w-0 bg-white/5 backdrop-blur-xl rounded-none md:rounded-2xl shadow-lg p-6 sm:p-8 md:p-10 border border-transparent md:border-white/20"
     >
-      {/* ✅ Service dropdown */}
+      {/* Service dropdown */}
       <div>
         <label className="block text-sm font-medium text-white mb-2">Service</label>
         <select
@@ -175,7 +170,7 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         </select>
       </div>
 
-      {/* ✅ Plan dropdown */}
+      {/* Plan dropdown */}
       {selectedService && (
         <div>
           <label className="block text-sm font-medium text-white mb-2">Plan</label>
@@ -243,11 +238,15 @@ const ContactForm = ({ subject }: ContactFormProps) => {
         buttonStyle={{
           height: 56,
           width: 60,
-          borderRadius: 10,
+          borderRadius: "10px 0 0 10px",
           backgroundColor: "#f9f9f9",
           borderRight: "1px solid #ccc",
         }}
         containerStyle={{ width: "100%" }}
+        dropdownStyle={{
+          borderRadius: 10,
+          zIndex: 9999,
+        }}
       />
 
       <textarea
